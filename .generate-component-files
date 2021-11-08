@@ -1,0 +1,5 @@
+$component=$1
+mkdir -p components/$component/__tests__ &&
+touch components/$component/__tests__/$component.test.tsx
+components/$component/$component.styles.ts
+components/$component/$component.tsx

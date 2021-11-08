@@ -1,0 +1,67 @@
+import css from "styled-jsx/css";
+
+export default css`
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    max-width: var(--max-content-width);
+    width: 100%;
+    height: 380px;
+    margin: 0 auto;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    footer {
+      border: var(--lineWidth) solid var(--lightGreen);
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    footer {
+      border: var(--lineWidth) solid var(--darkGreen);
+    }
+  }
+
+  .bottom-bar {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .bottom-bar {
+      border-top: var(--lineWidth) solid var(--lightGreen);
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .bottom-bar {
+      border-top: var(--lineWidth) solid var(--darkGreen);
+    }
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    list-style: none;
+
+    padding: 0;
+    margin: 0 0 0 auto;
+  }
+
+  li {
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+  }
+
+  li:nth-child(2) {
+    padding: 0.7em;
+  }
+`;

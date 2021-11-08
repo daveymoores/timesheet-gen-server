@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders button unchanged 1`] = `
+<button
+  className="jsx-2351062086"
+  type="submit"
+>
+  Subscribe
+</button>
+`;

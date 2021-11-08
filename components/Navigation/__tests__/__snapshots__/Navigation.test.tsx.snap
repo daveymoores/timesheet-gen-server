@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navigation renders navigation unchanged 1`] = `
+<nav
+  className="jsx-1120953475"
+  role="navigation"
+>
+  <span
+    className="jsx-1120953475 t-gen--cell"
+  >
+    TIMESHEET-GEN
+  </span>
+  <ul
+    className="jsx-1120953475"
+  >
+    <li
+      className="jsx-1120953475 t-gen--cell"
+    >
+      <a
+        className="jsx-1120953475"
+        href=""
+      >
+        Documentation
+      </a>
+    </li>
+    <li
+      className="jsx-1120953475 t-gen--cell"
+    >
+      <a
+        className="jsx-1120953475"
+        href=""
+      >
+        Code
+      </a>
+    </li>
+  </ul>
+</nav>
+`;
