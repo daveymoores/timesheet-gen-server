@@ -2,7 +2,7 @@
 
 exports[`Footer renders footer unchanged 1`] = `
 <footer
-  className="jsx-3117248184"
+  className="jsx-1890663278"
 >
   <div
     className="jsx-591473389 newsletter-subscribe"
@@ -20,7 +20,7 @@ exports[`Footer renders footer unchanged 1`] = `
         type="text"
       />
       <button
-        className="jsx-2351062086"
+        className="jsx-836649993"
         type="submit"
       >
         Subscribe
@@ -28,23 +28,23 @@ exports[`Footer renders footer unchanged 1`] = `
     </form>
   </div>
   <div
-    className="jsx-3117248184 bottom-bar"
+    className="jsx-1890663278 bottom-bar"
   >
     <ul
-      className="jsx-3117248184"
+      className="jsx-1890663278"
     >
       <li
-        className="jsx-3117248184 t-gen--cell"
+        className="jsx-1890663278 t-gen--cell"
       >
         <a
-          className="jsx-3117248184"
+          className="jsx-1890663278"
           href=""
         >
           View on Github
         </a>
       </li>
       <li
-        className="jsx-3117248184 t-gen--cell"
+        className="jsx-1890663278 t-gen--cell"
       >
         <span
           style={

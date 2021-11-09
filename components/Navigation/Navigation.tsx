@@ -6,7 +6,10 @@ const Navigation: React.FC = () => {
   return (
     <>
       <nav role="navigation">
-        <span className="t-gen--cell">TIMESHEET-GEN</span>
+        <a href="/" className="t-gen--cell">
+          TIMESHEET-GEN{" "}
+        </a>
+
         <ul>
           <li className="t-gen--cell">
             <a href="">Documentation</a>

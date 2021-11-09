@@ -9,7 +9,7 @@ export default css.global`
     --lightPink: #ff9b9e;
 
     --lineWidth: 3px;
-    --cellHeight: 50px;
+    --cellHeight: 44px;
     --max-content-width: 1180px;
 
     --fontFamilyInter: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,

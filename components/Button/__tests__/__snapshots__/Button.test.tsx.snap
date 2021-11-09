@@ -2,7 +2,7 @@
 
 exports[`Button renders button unchanged 1`] = `
 <button
-  className="jsx-2351062086"
+  className="jsx-836649993"
   type="submit"
 >
   Subscribe

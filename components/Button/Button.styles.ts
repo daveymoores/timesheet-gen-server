@@ -2,7 +2,7 @@ import css from "styled-jsx/css";
 
 export default css`
   button {
-    height: 50px;
+    height: 44px;
     padding: 0 3em;
     border: none;
     font-weight: 500;

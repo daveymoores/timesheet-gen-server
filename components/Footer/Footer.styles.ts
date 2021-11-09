@@ -26,7 +26,7 @@ export default css`
   }
 
   .bottom-bar {
-    height: 50px;
+    height: var(--cell-height);
     display: flex;
     justify-content: space-between;
     align-items: stretch;

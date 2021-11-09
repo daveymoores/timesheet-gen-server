@@ -16,7 +16,7 @@ const Cell: React.FC<CellProps> = ({ text, title }) => {
       <style jsx>{`
         .timesheet__cell {
           margin-top: calc(-1 * var(--lineWidth));
-          padding: 20px;
+          padding: 0.82em 1.2em;
           font-size: 16px;
         }
 

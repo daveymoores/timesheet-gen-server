@@ -5,32 +5,34 @@ exports[`Layout renders Layout unchanged 1`] = `
   className="jsx-1312961322 page-layout"
 >
   <nav
-    className="jsx-1120953475"
+    className="jsx-3281591941"
     role="navigation"
   >
-    <span
-      className="jsx-1120953475 t-gen--cell"
+    <a
+      className="jsx-3281591941 t-gen--cell"
+      href="/"
     >
       TIMESHEET-GEN
-    </span>
+       
+    </a>
     <ul
-      className="jsx-1120953475"
+      className="jsx-3281591941"
     >
       <li
-        className="jsx-1120953475 t-gen--cell"
+        className="jsx-3281591941 t-gen--cell"
       >
         <a
-          className="jsx-1120953475"
+          className="jsx-3281591941"
           href=""
         >
           Documentation
         </a>
       </li>
       <li
-        className="jsx-1120953475 t-gen--cell"
+        className="jsx-3281591941 t-gen--cell"
       >
         <a
-          className="jsx-1120953475"
+          className="jsx-3281591941"
           href=""
         >
           Code
@@ -42,7 +44,7 @@ exports[`Layout renders Layout unchanged 1`] = `
     className="jsx-1312961322"
   />
   <footer
-    className="jsx-3117248184"
+    className="jsx-1890663278"
   >
     <div
       className="jsx-591473389 newsletter-subscribe"
@@ -60,7 +62,7 @@ exports[`Layout renders Layout unchanged 1`] = `
           type="text"
         />
         <button
-          className="jsx-2351062086"
+          className="jsx-836649993"
           type="submit"
         >
           Subscribe
@@ -68,23 +70,23 @@ exports[`Layout renders Layout unchanged 1`] = `
       </form>
     </div>
     <div
-      className="jsx-3117248184 bottom-bar"
+      className="jsx-1890663278 bottom-bar"
     >
       <ul
-        className="jsx-3117248184"
+        className="jsx-1890663278"
       >
         <li
-          className="jsx-3117248184 t-gen--cell"
+          className="jsx-1890663278 t-gen--cell"
         >
           <a
-            className="jsx-3117248184"
+            className="jsx-1890663278"
             href=""
           >
             View on Github
           </a>
         </li>
         <li
-          className="jsx-3117248184 t-gen--cell"
+          className="jsx-1890663278 t-gen--cell"
         >
           <span
             style={

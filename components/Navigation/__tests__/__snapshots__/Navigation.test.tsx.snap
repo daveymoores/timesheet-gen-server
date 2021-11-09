@@ -2,32 +2,34 @@
 
 exports[`Navigation renders navigation unchanged 1`] = `
 <nav
-  className="jsx-1120953475"
+  className="jsx-3281591941"
   role="navigation"
 >
-  <span
-    className="jsx-1120953475 t-gen--cell"
+  <a
+    className="jsx-3281591941 t-gen--cell"
+    href="/"
   >
     TIMESHEET-GEN
-  </span>
+     
+  </a>
   <ul
-    className="jsx-1120953475"
+    className="jsx-3281591941"
   >
     <li
-      className="jsx-1120953475 t-gen--cell"
+      className="jsx-3281591941 t-gen--cell"
     >
       <a
-        className="jsx-1120953475"
+        className="jsx-3281591941"
         href=""
       >
         Documentation
       </a>
     </li>
     <li
-      className="jsx-1120953475 t-gen--cell"
+      className="jsx-3281591941 t-gen--cell"
     >
       <a
-        className="jsx-1120953475"
+        className="jsx-3281591941"
         href=""
       >
         Code

@@ -25,7 +25,7 @@ export default css`
     }
   }
 
-  nav > span {
+  nav > a {
     border-top: none;
     border-bottom: none;
     border-left: none;
