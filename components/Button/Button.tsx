@@ -1,10 +1,16 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
 import styles from "../Button/Button.styles";
 
-const Button: React.FC = () => (
+interface ButtonProps extends Partial<ButtonHTMLAttributes<any>> {
+  text: string;
+}
+
+const Button: React.FC<ButtonProps> = ({ type, text, onClick }) => (
   <>
-    <button type="submit">Subscribe</button>
+    <button type={type} onClick={onClick}>
+      {text}
+    </button>
     <style jsx>{styles}</style>
   </>
 );

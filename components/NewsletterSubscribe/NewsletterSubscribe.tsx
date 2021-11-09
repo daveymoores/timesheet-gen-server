@@ -10,7 +10,7 @@ const NewsletterSubscribe: React.FC = () => (
       <h3>Subscribe to be the first to know about updates</h3>
       <form>
         <Input />
-        <Button />
+        <Button type="submit" text="subscribe" />
       </form>
     </div>
     <style jsx>{styles}</style>

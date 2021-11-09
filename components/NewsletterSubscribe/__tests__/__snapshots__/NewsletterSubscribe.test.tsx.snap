@@ -20,7 +20,7 @@ exports[`NewsletterSubscribe renders NewsletterSubscribe unchanged 1`] = `
       className="jsx-836649993"
       type="submit"
     >
-      Subscribe
+      subscribe
     </button>
   </form>
 </div>
