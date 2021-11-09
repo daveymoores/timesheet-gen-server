@@ -3,7 +3,7 @@ import React from "react";
 
 import styles from "./Command.styles";
 
-interface CommandProps {
+export interface CommandProps {
   code: string;
   heading: string;
 }
