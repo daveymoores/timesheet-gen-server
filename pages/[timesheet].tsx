@@ -3,10 +3,11 @@ import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import React from "react";
 
-import TableCell from "../components/TableCell/TableCell";
+import Cell from "../components/Cell/Cell";
+import Table from "../components/Table/Table";
 
 interface TimesheetDayLog {
-  hour: number;
+  hours: number;
   user_edited: 0 | 1;
   weekend: 0 | 1;
 }
@@ -17,11 +18,12 @@ export interface ParsedTimesheetDayLog
   weekend: boolean;
 }
 
-interface TimesheetProps<T> {
+export interface TimesheetProps<T> {
   timesheet: string;
   name: string;
   email: string;
   namespace: string;
+  project_number: string;
   client_name: string;
   client_contact_person: string;
   address: string;
@@ -31,36 +33,50 @@ interface TimesheetProps<T> {
 }
 
 const Timesheet: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> =
-  ({ params: { timesheet_log } }) => {
+  ({
+    params: {
+      name,
+      email,
+      namespace,
+      project_number,
+      client_name,
+      client_contact_person,
+      address,
+      timesheet_log,
+      month_year,
+      total_hours,
+    },
+  }) => {
     return (
       <>
         <article className="timesheet">
           <header>
-            <h1 className="timesheet--title">Timesheet: November, 2021</h1>
-
-            <div className="timesheet__table--wrapper">
-              <div className="timesheet__cell timesheet__cell--title">
-                Days:
-              </div>
-              <div className="timesheet__table--container">
-                <div className="timesheet__table--row">
-                  {timesheet_log.map((day_value, index: number) => (
-                    <TableCell day_index={index + 1} day key={index} />
-                  ))}
-                </div>
-                <div className="timesheet__table--row">
-                  {timesheet_log.map(
-                    (day: ParsedTimesheetDayLog, index: number) => (
-                      <TableCell {...day} key={index} />
-                    )
-                  )}
-                </div>
-              </div>
-              <div className="timesheet__cell timesheet__cell--title">
-                Total: 125
-              </div>
-            </div>
+            <h1 className="timesheet--title">Timesheet: {month_year}</h1>
           </header>
+
+          <div className="timesheet--row">
+            <div className="timesheet__cell-group">
+              <Cell text="Client:" title />
+              <Cell text={client_name} />
+              <Cell text={client_contact_person} />
+              <Cell text={address} />
+            </div>
+
+            <div className="timesheet__cell-group">
+              <Cell text="Contractor:" title />
+              <Cell text={name} />
+              <Cell text={email} />
+            </div>
+          </div>
+
+          <div className="timesheet--row">
+            <div className="timesheet__cell-group">
+              <Cell text={`Project: ${namespace}`} title />
+              <Cell text={`Project number: ${project_number}`} title />
+            </div>
+          </div>
+
+          <Table timesheet_log={timesheet_log} total_hours={total_hours} />
         </article>
         <style jsx>{`
           .timesheet--row {
@@ -78,111 +94,6 @@ const Timesheet: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> =
             flex-direction: column;
             align-items: start;
             margin: 0 60px 60px 0;
-          }
-
-          .timesheet__cell {
-            margin-top: calc(-1 * var(--lineWidth));
-            padding: 20px;
-            font-size: 16px;
-          }
-
-          @media (prefers-color-scheme: dark) {
-            .timesheet__cell {
-              border: var(--lineWidth) solid var(--lightGreen);
-            }
-          }
-
-          @media (prefers-color-scheme: light) {
-            .timesheet__cell {
-              border: var(--lineWidth) solid var(--darkGrey);
-            }
-          }
-
-          .timesheet__cell:first-child {
-            margin-top: 0;
-          }
-
-          .timesheet__cell p {
-            padding: 0;
-            margin: 0;
-          }
-
-          .timesheet__cell--title {
-            font-weight: 600;
-          }
-
-          @media (prefers-color-scheme: dark) {
-            .timesheet__cell--title {
-              background-color: var(--mistyGrey);
-            }
-          }
-
-          @media (prefers-color-scheme: light) {
-            .timesheet__cell--title {
-              background-color: var(--mistyGreen);
-            }
-          }
-
-          .timesheet__table {
-            display: flex;
-            justify-content: center;
-          }
-
-          .timesheet__table--wrapper {
-            display: flex;
-            flex-direction: column;
-          }
-
-          .timesheet__cell--title:nth-child(1) {
-            align-self: flex-start;
-            border-bottom: none;
-          }
-
-          .timesheet__cell--title:last-child {
-            align-self: flex-end;
-          }
-
-          @media (prefers-color-scheme: dark) {
-            .timesheet__table--container {
-              border: var(--lineWidth) solid var(--lightGreen);
-            }
-          }
-
-          @media (prefers-color-scheme: light) {
-            .timesheet__table--container {
-              border: var(--lineWidth) solid var(--darkGrey);
-            }
-          }
-
-          .timesheet__table--row {
-            display: grid;
-            grid-template-columns: repeat(31, var(--cellHeight));
-            grid-template-rows: repeat(1, var(--cellHeight));
-            grid-gap: var(--lineWidth);
-          }
-
-          @media (prefers-color-scheme: dark) {
-            .timesheet__table--row:first-child {
-              border-bottom: var(--lineWidth) solid var(--lightGreen);
-            }
-          }
-
-          @media (prefers-color-scheme: light) {
-            .timesheet__table--row:first-child {
-              border-bottom: var(--lineWidth) solid var(--darkGrey);
-            }
-          }
-
-          @media (prefers-color-scheme: dark) {
-            .timesheet__table--row {
-              background-color: var(--lightGreen);
-            }
-          }
-
-          @media (prefers-color-scheme: light) {
-            .timesheet__table--row {
-              background-color: var(--darkGrey);
-            }
           }
         `}</style>
       </>
@@ -251,6 +162,7 @@ export const getServerSideProps: GetServerSideProps<
         ),
         total_hours: data.total_hours,
         month_year: data.month_year,
+        project_number: 4567,
       },
     },
   };
