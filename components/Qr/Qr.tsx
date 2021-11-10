@@ -1,12 +1,9 @@
-import Image from "next/image";
 import React from "react";
-import CanvasDraw from "react-canvas-draw";
 
 import { ParsedTimesheetDayLog, TimesheetProps } from "../../pages/[timesheet]";
-import palette from "../../utils/palette";
-import Cell from "../Cell/Cell";
+import QrGroup from "../QrGroup/QrGroup";
 
-type QrProps = Pick<
+export type QrProps = Pick<
   TimesheetProps<ParsedTimesheetDayLog>,
   | "user_sign_qr_code"
   | "approver_sign_qr_code"
@@ -20,73 +17,23 @@ const Qr: React.FC<QrProps> = ({
   user_signature,
   approver_signature,
 }) => {
-  const userCanvasRef = React.useRef<CanvasDraw>(null);
-  const approverCanvasRef = React.useRef<CanvasDraw>(null);
-
-  React.useEffect(() => {
-    if (userCanvasRef.current && user_signature) {
-      userCanvasRef.current.loadSaveData(user_signature);
-    }
-
-    if (approverCanvasRef.current && approver_signature) {
-      approverCanvasRef.current.loadSaveData(approver_signature);
-    }
-  }, [
-    userCanvasRef.current,
-    user_signature,
-    approverCanvasRef.current,
-    approver_signature,
-  ]);
-
   return (
     <>
       <div className="qr">
-        <div className="qr__group">
-          <Cell text="Signee: Davey Moores" title />
-          {user_signature && typeof window !== "undefined" ? (
-            <CanvasDraw
-              ref={userCanvasRef}
-              canvasHeight={230}
-              canvasWidth={230}
-              brushColor={palette.LIGHT_GREEN}
-              backgroundColor={palette.DARK_GREY}
-              hideGrid
-              disabled
-            />
-          ) : (
-            <Image
-              className="qr_code"
-              src={`data:image/svg+xml;utf8,${encodeURIComponent(
-                user_sign_qr_code.dark
-              )}`}
-              width={230}
-              height={230}
-            />
-          )}
-        </div>
-
-        <div className="qr__group">
-          <Cell text="Approver: Jim Spencer Brown" title />
-          {approver_signature && typeof window !== "undefined" ? (
-            <CanvasDraw
-              ref={approverCanvasRef}
-              canvasHeight={230}
-              canvasWidth={230}
-              brushColor={palette.LIGHT_GREEN}
-              backgroundColor={palette.DARK_GREY}
-              hideGrid
-              disabled
-            />
-          ) : (
-            <Image
-              src={`data:image/svg+xml;utf8,${encodeURIComponent(
-                approver_sign_qr_code.dark
-              )}`}
-              width={230}
-              height={230}
-            />
-          )}
-        </div>
+        <QrGroup
+          cellTitle="Signee: Davey Moores"
+          signature={user_signature}
+          qrCodeLight={user_sign_qr_code.light}
+          qrCodeDark={user_sign_qr_code.dark}
+          signeeType={"user_signature"}
+        />
+        <QrGroup
+          cellTitle="Approver: Jim Spencer Brown"
+          signature={approver_signature}
+          qrCodeLight={approver_sign_qr_code.light}
+          qrCodeDark={approver_sign_qr_code.dark}
+          signeeType={"approver_signature"}
+        />
       </div>
       <style jsx>
         {`
@@ -103,12 +50,6 @@ const Qr: React.FC<QrProps> = ({
             .qr {
               flex-direction: row;
             }
-          }
-
-          .qr__group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 25px;
           }
         `}
       </style>
