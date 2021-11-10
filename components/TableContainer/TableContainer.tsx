@@ -6,7 +6,6 @@ import TableCell from "../TableCell/TableCell";
 type TableRow = Pick<TimesheetProps<ParsedTimesheetDayLog>, "timesheet_log">;
 
 const TableContainer: React.FC<TableRow> = ({ timesheet_log }) => {
-  console.log(timesheet_log.length);
   return (
     <>
       <div className="timesheet__table--container">

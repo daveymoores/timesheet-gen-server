@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { Document, MongoClient, ObjectId } from "mongodb";
 import { GetServerSideProps } from "next";
 import QRCode from "qrcode";
 import { ParsedUrlQuery } from "querystring";
@@ -7,6 +7,7 @@ import React from "react";
 import Cell from "../../components/Cell/Cell";
 import Qr from "../../components/Qr/Qr";
 import Table from "../../components/Table/Table";
+import palette from "../../utils/palette";
 
 interface QrCode {
   light: string;
@@ -39,6 +40,8 @@ export interface TimesheetProps<T> {
   month_year: string;
   user_sign_qr_code: QrCode;
   approver_sign_qr_code: QrCode;
+  user_signature: string;
+  approver_signature: string;
 }
 
 const Timesheet: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> =
@@ -56,6 +59,8 @@ const Timesheet: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> =
       total_hours,
       user_sign_qr_code,
       approver_sign_qr_code,
+      user_signature,
+      approver_signature,
     },
   }) => {
     return (
@@ -92,6 +97,8 @@ const Timesheet: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> =
           <Qr
             user_sign_qr_code={user_sign_qr_code}
             approver_sign_qr_code={approver_sign_qr_code}
+            user_signature={user_signature}
+            approver_signature={approver_signature}
           />
         </article>
         <style jsx>{`
@@ -154,15 +161,22 @@ export const getServerSideProps: GetServerSideProps<
     }
   };
 
-  const uri = process.env.MONGODB_URI;
+  const URI = process.env.MONGODB_URI;
+  const SITE_URL = process.env.SITE_URL;
 
-  if (!uri) {
+  if (!URI) {
     throw new Error("MONGODB_URI is not set");
   }
 
-  const client = new MongoClient(uri);
+  if (!SITE_URL) {
+    throw new Error("SITE_URL is not set");
+  }
 
-  const run = async (random_path: string | undefined) => {
+  const client = new MongoClient(URI);
+
+  const run = async (
+    random_path: string | undefined
+  ): Promise<Document | null> => {
     try {
       await client.connect();
       const database = client.db("timesheet-gen");
@@ -183,9 +197,12 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
+  const id = new ObjectId(data._id).toString();
+
   return {
     props: {
       params: {
+        id,
         timesheet: data.random_path,
         name: data.name,
         email: data.email,
@@ -205,20 +222,30 @@ export const getServerSideProps: GetServerSideProps<
         project_number: 4567,
         user_sign_qr_code: {
           light: await generateQR(
-            "http://localhost:3000",
-            "#e1f7de",
-            "#1e2027"
+            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
+            palette.LIGHT_GREEN,
+            palette.DARK_GREY
           ),
-          dark: await generateQR("http://localhost:3000", "#1e2027", "#e1f7de"),
+          dark: await generateQR(
+            `${SITE_URL}/${data.random_path}/sign?id=${id}by=user`,
+            palette.DARK_GREY,
+            palette.LIGHT_GREEN
+          ),
         },
         approver_sign_qr_code: {
           light: await generateQR(
-            "http://localhost:3000",
-            "#e1f7de",
-            "#1e2027"
+            `${SITE_URL}/${data.random_path}/id=${id}sign?by=approver`,
+            palette.LIGHT_GREEN,
+            palette.DARK_GREY
           ),
-          dark: await generateQR("http://localhost:3000", "#1e2027", "#e1f7de"),
+          dark: await generateQR(
+            `${SITE_URL}/${data.random_path}/id=${id}sign?by=approver`,
+            palette.DARK_GREY,
+            palette.LIGHT_GREEN
+          ),
         },
+        user_signature: data.user_signature,
+        approver_signature: data.approver_signature,
       },
     },
   };

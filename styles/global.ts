@@ -1,12 +1,14 @@
 import css from "styled-jsx/css";
 
+import palette from "../utils/palette";
+
 export default css.global`
   :root {
-    --darkGrey: #1e2027;
-    --mistyGrey: #2d3039;
-    --lightGreen: #e1f7de;
-    --mistyGreen: #d2efce;
-    --lightPink: #ff9b9e;
+    --darkGrey: ${palette.DARK_GREY};
+    --mistyGrey: ${palette.MISTY_GREY};
+    --lightGreen: ${palette.LIGHT_GREEN};
+    --mistyGreen: ${palette.MISTY_GREEN};
+    --lightPink: ${palette.LIGHT_PINK};
 
     --lineWidth: 3px;
     --cellHeight: 44px;

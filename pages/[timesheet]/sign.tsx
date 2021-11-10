@@ -1,30 +1,54 @@
 import { GetServerSideProps } from "next";
 import React from "react";
 import CanvasDraw from "react-canvas-draw";
+import { useWindowSize } from "react-use";
 
 import Button from "../../components/Button/Button";
+import palette from "../../utils/palette";
 
-const Sign: React.FC = () => {
+export interface SignProps {
+  id: string;
+  by: "approver" | "user";
+  timesheet: string;
+}
+
+const Sign: React.FC<SignProps> = ({ id, by }) => {
+  const { width, height } = useWindowSize();
   const canvas = React.useRef<CanvasDraw>(null);
 
-  const onClick = React.useCallback(() => {
+  const onClick = React.useCallback(async () => {
     if (canvas.current) {
-      console.log(canvas.current.getSaveData());
+      await fetch("/api/signature", {
+        method: "POST",
+        mode: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          signature_string: canvas.current.getSaveData(),
+          id,
+          by,
+        }), // body data type must match "Content-Type" header
+      });
     }
-  }, [canvas.current]);
+  }, [canvas.current, id, by]);
 
   return (
     <>
       <div className="sign">
-        <CanvasDraw
-          ref={canvas}
-          lazyRadius={15}
-          brushRadius={6}
-          brushColor={"#e1f7de"}
-          backgroundColor={"#1e2027"}
-          hideGrid
-          canvasWidth={900}
-        />
+        {typeof window !== "undefined" && (
+          <CanvasDraw
+            className="canvas"
+            ref={canvas}
+            lazyRadius={3}
+            brushRadius={3}
+            brushColor={palette.LIGHT_GREEN}
+            backgroundColor={palette.DARK_GREY}
+            hideGrid
+            canvasWidth={width - 112}
+            canvasHeight={height - 250}
+          />
+        )}
         <Button text="Save" type="button" onClick={onClick} />
       </div>
       <style jsx>{`
@@ -33,6 +57,19 @@ const Sign: React.FC = () => {
           flex-direction: column;
           align-items: center;
           max-width: var(--max-content-width);
+          margin: auto;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          .sign {
+            border: var(--lineWidth) solid var(--lightGreen);
+          }
+        }
+
+        @media (prefers-color-scheme: light) {
+          .sign {
+            border: var(--lineWidth) solid var(--darkGrey);
+          }
         }
       `}</style>
     </>
@@ -40,10 +77,7 @@ const Sign: React.FC = () => {
 };
 
 interface Context {
-  query: {
-    by: "approver" | "user";
-    timesheet: string;
-  };
+  query: SignProps;
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -53,6 +87,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 }: Context) => {
   return {
     props: {
+      id: query.id,
       by: query.by,
       approver: query.timesheet,
     },
