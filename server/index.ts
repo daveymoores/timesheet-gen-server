@@ -80,20 +80,23 @@ nextApp.prepare().then(async () => {
           return;
         }
 
-        const signature = updateFields.user_signature;
         const signee = Object.keys(updateFields).find(
           (key: string) => key.indexOf("_signature") > -1
         );
 
-        const payload = { signature, signee, error: false };
+        const payload = {
+          signature: signee ? updateFields[signee] : null,
+          signee,
+          error: false,
+        };
 
         socket.emit("signature_update", payload);
         changeStream.close();
       });
 
-      socket.on("disconnect", () => {
-        console.log("client disconnected");
-      });
+      // socket.on("disconnect", () => {
+      //   console.log("client disconnected");
+      // });
     });
 
     return handle(req, res);

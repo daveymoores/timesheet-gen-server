@@ -47,7 +47,7 @@ const QrGroup: React.FC<QrGroupProps> = ({
     <>
       <div className="qr__group">
         <Cell text={cellTitle} title />
-        {signature && typeof window !== "undefined" ? (
+        {signeeSignature && typeof window !== "undefined" ? (
           <CanvasDraw
             ref={canvasRef}
             canvasHeight={230}

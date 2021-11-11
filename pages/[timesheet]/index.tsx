@@ -227,25 +227,25 @@ export const getServerSideProps: GetServerSideProps<
             palette.DARK_GREY
           ),
           dark: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}by=user`,
+            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
             palette.DARK_GREY,
             palette.LIGHT_GREEN
           ),
         },
         approver_sign_qr_code: {
           light: await generateQR(
-            `${SITE_URL}/${data.random_path}/id=${id}sign?by=approver`,
+            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
             palette.LIGHT_GREEN,
             palette.DARK_GREY
           ),
           dark: await generateQR(
-            `${SITE_URL}/${data.random_path}/id=${id}sign?by=approver`,
+            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
             palette.DARK_GREY,
             palette.LIGHT_GREEN
           ),
         },
-        user_signature: data.user_signature,
-        approver_signature: data.approver_signature,
+        user_signature: data.user_signature || null,
+        approver_signature: data.approver_signature || null,
       },
     },
   };
