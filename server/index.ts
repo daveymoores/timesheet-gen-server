@@ -27,6 +27,10 @@ nextApp.prepare().then(async () => {
   await mongoClient.connect();
   const database = mongoClient.db("timesheet-gen");
   const mongoCollection = database.collection("timesheet-temp-paths");
+  const mongodb = {
+    database,
+    mongoCollection,
+  };
 
   io.attach(server);
 
@@ -35,14 +39,8 @@ nextApp.prepare().then(async () => {
   app.post("/api/signature", async (req, res) => {
     const run = async ({ id, by, signature_string }: RequestBody) => {
       try {
-        await mongoClient.connect();
-        const database = mongoClient.db("timesheet-gen");
-        const timesheet_collection = database.collection(
-          "timesheet-temp-paths"
-        );
-
         const query = { _id: new ObjectId(id) };
-        await timesheet_collection.findOneAndUpdate(
+        await mongodb.mongoCollection.findOneAndUpdate(
           query,
           {
             $set: {
@@ -51,8 +49,8 @@ nextApp.prepare().then(async () => {
           },
           { upsert: true }
         );
-      } finally {
-        await mongoClient.close();
+      } catch (err) {
+        console.error(err);
       }
     };
 
@@ -68,11 +66,24 @@ nextApp.prepare().then(async () => {
     const pipeline = [
       { $match: { "fullDocument.random_path": req.body.timesheet } },
     ];
-    const changeStream = mongoCollection.watch(pipeline);
+    const changeStream = mongodb.mongoCollection.watch(pipeline);
 
     io.on("connect", (socket: socketIo.Socket) => {
-      changeStream.on("change", ({ updateDescription }) => {
-        const updateFields = updateDescription?.updatedFields;
+      changeStream.on("change", (next) => {
+        const regex = new RegExp(`^[\\/^](\\w+)`);
+
+        if (!socket?.request?.headers?.referer) {
+          throw new Error("Referrer not found");
+        }
+
+        const pathname = new URL(socket.request.headers.referer).pathname;
+        const matches: RegExpExecArray | null = regex.exec(pathname);
+
+        if (!(matches || [])[1] || !pathname) {
+          throw new Error("Path not found");
+        }
+
+        const updateFields = next?.updateDescription?.updatedFields;
 
         if (!updateFields) {
           socket.emit("signature_update", { signature: null, error: true });
@@ -90,23 +101,25 @@ nextApp.prepare().then(async () => {
           error: false,
         };
 
+        console.log("activeRoom: ", matches![1]);
         socket.emit("signature_update", payload);
-        changeStream.close();
       });
 
-      // socket.on("disconnect", () => {
-      //   console.log("client disconnected");
-      // });
+      socket.on("join", async (timesheet) => {
+        console.log("join id >", timesheet);
+        try {
+          socket.join(timesheet);
+          console.log(`User has joined ${timesheet}`);
+        } catch (err) {
+          console.log(err);
+        }
+      });
     });
 
     return handle(req, res);
   });
 
   app.get("*", (req, res) => handle(req, res));
-  // server.get("/:timesheet/sign", (req, res) => {
-  //   const routeMatch = match("/:timesheet/sign", new URL(req.url).pathname);
-  //   return app.render(req, res, routeMatch.params.timesheet, routeMatch.params);
-  // });
 
   server.listen(3000, () => {
     console.log("Ready on http://localhost:3000");

@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import QRCode from "qrcode";
 import { ParsedUrlQuery } from "querystring";
 import React from "react";
+import { io } from "socket.io-client";
 
 import Cell from "../../components/Cell/Cell";
 import Qr from "../../components/Qr/Qr";
@@ -47,6 +48,7 @@ export interface TimesheetProps<T> {
 const Timesheet: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> =
   ({
     params: {
+      timesheet,
       name,
       email,
       namespace,
@@ -63,6 +65,13 @@ const Timesheet: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> =
       approver_signature,
     },
   }) => {
+    React.useEffect(() => {
+      const socket = io();
+      socket.on("connect", async () => {
+        socket.emit("join", timesheet);
+      });
+    }, []);
+
     return (
       <>
         <article className="timesheet">
