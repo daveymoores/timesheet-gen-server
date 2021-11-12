@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewsletterSubscribe renders NewsletterSubscribe unchanged 1`] = `
+<div
+  className="jsx-3185220219 newsletter-subscribe"
+>
+  <h3
+    className="jsx-3185220219"
+  >
+    Subscribe to be the first to know about updates
+  </h3>
+  <form
+    className="jsx-3185220219"
+  >
+    <input
+      className="jsx-3861775726 t-gen--cell"
+      type="text"
+    />
+    <button
+      className="jsx-3604569186 "
+      type="submit"
+    >
+      subscribe
+    </button>
+  </form>
+</div>
+`;

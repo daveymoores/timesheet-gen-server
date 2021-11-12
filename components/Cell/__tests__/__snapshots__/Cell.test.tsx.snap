@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cell renders Cell unchanged 1`] = `
+<div
+  className="jsx-2505651778 timesheet__cell"
+>
+  <p
+    className="jsx-2505651778"
+  >
+    Hello
+  </p>
+</div>
+`;

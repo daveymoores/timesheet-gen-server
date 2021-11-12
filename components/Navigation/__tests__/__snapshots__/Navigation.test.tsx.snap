@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navigation renders navigation unchanged 1`] = `
+<nav
+  className="jsx-3156703236"
+  role="navigation"
+>
+  <span
+    className="jsx-3156703236 t-gen--cell"
+  >
+    <a
+      href="/"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      TIMESHEET-GEN
+    </a>
+  </span>
+  <ul
+    className="jsx-3156703236"
+  >
+    <li
+      className="jsx-3156703236 t-gen--cell"
+    >
+      <a
+        href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Docs
+      </a>
+    </li>
+    <li
+      className="jsx-3156703236 t-gen--cell"
+    >
+      <a
+        href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Code
+      </a>
+    </li>
+  </ul>
+</nav>
+`;
