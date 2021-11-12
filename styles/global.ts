@@ -49,13 +49,17 @@ export default css.global`
   }
 
   @media (prefers-color-scheme: dark) {
-    a {
+    a,
+    a:visited,
+    a:hover {
       color: var(--lightGreen);
     }
   }
 
   @media (prefers-color-scheme: light) {
-    body {
+    a,
+    a:visited,
+    a:hover {
       color: var(--darkGrey);
     }
   }
@@ -78,7 +82,7 @@ export default css.global`
   @media (prefers-color-scheme: light) {
     .t-gen--cell {
       background-color: var(--lightGreen);
-      border: var(--lineWidth) solid var(--darkGreen);
+      border: var(--lineWidth) solid var(--darkGrey);
       color: var(--darkGrey);
     }
   }

@@ -2,7 +2,7 @@
 
 exports[`Qr renders Qr unchanged 1`] = `
 <div
-  className="jsx-311871713 qr"
+  className="jsx-1318874441 qr"
 >
   <div
     className="jsx-1436220098 qr__group"

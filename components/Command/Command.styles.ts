@@ -24,7 +24,7 @@ export default css`
 
   @media (prefers-color-scheme: light) {
     button {
-      border-left: var(--lineWidth) solid var(--darkGreen);
+      border-left: var(--lineWidth) solid var(--darkGrey);
     }
   }
 
@@ -40,6 +40,8 @@ export default css`
     display: block;
     padding: 2em;
     text-align: center;
+    white-space: nowrap;
+    overflow-x: scroll;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -51,13 +53,19 @@ export default css`
 
   @media (prefers-color-scheme: light) {
     code {
-      border-top: var(--lineWidth) solid var(--darkGreen);
-      background-color: var(--mistyGrey);
+      border-top: var(--lineWidth) solid var(--darkGrey);
+      background-color: var(--mistyGreen);
     }
   }
 
   section {
-    margin-bottom: 50px;
+    margin-bottom: 25px;
+  }
+
+  @media screen and (min-width: 900px) {
+    section {
+      margin-bottom: 50px;
+    }
   }
 
   @media (prefers-color-scheme: dark) {
@@ -68,7 +76,7 @@ export default css`
 
   @media (prefers-color-scheme: light) {
     section {
-      border: var(--lineWidth) solid var(--darkGreen);
+      border: var(--lineWidth) solid var(--darkGrey);
     }
   }
 `;

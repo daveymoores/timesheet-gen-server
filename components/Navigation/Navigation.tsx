@@ -1,25 +1,25 @@
+import Link from "next/link";
 import React from "react";
 
-import styles from "./Navigation.styles";
+import navStyles from "./Navigation.styles";
 
 const Navigation: React.FC = () => {
   return (
     <>
       <nav role="navigation">
-        <a href="/" className="t-gen--cell">
-          TIMESHEET-GEN{" "}
-        </a>
-
+        <span className="t-gen--cell">
+          <Link href="/">TIMESHEET-GEN</Link>
+        </span>
         <ul>
           <li className="t-gen--cell">
-            <a href="">Documentation</a>
+            <Link href="">Docs</Link>
           </li>
           <li className="t-gen--cell">
-            <a href="">Code</a>
+            <Link href="">Code</Link>
           </li>
         </ul>
       </nav>
-      <style jsx>{styles}</style>
+      <style jsx>{navStyles}</style>
     </>
   );
 };

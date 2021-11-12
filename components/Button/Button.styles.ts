@@ -13,12 +13,24 @@ export default css`
       background-color: var(--lightGreen);
       color: var(--darkGrey);
     }
+
+    .button--invert {
+      background-color: var(--darkGrey);
+      color: var(--lightGreen);
+      border: var(--lineWidth) solid var(--lightGreen);
+    }
   }
 
   @media (prefers-color-scheme: light) {
     button {
-      background-color: var(--lightGreen);
+      background-color: var(--darkGrey);
       color: var(--lightGreen);
+    }
+
+    .button--invert {
+      background-color: var(--lightGreen);
+      color: var(--darkGrey);
+      border: var(--lineWidth) solid var(--darkGrey);
     }
   }
 `;

@@ -7,6 +7,8 @@ export default css`
     justify-content: center;
     flex-direction: column;
     height: 100%;
+    padding: 25px 25px 35px;
+    box-sizing: border-box;
   }
 
   .newsletter-subscribe form {

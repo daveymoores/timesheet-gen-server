@@ -10,7 +10,7 @@ import Qr from "../../components/Qr/Qr";
 import Table from "../../components/Table/Table";
 import palette from "../../utils/palette";
 
-interface QrCode {
+export interface QrCode {
   light: string;
   dark: string;
 }

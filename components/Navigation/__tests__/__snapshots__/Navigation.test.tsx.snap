@@ -2,35 +2,41 @@
 
 exports[`Navigation renders navigation unchanged 1`] = `
 <nav
-  className="jsx-3281591941"
+  className="jsx-3156703236"
   role="navigation"
 >
-  <a
-    className="jsx-3281591941 t-gen--cell"
-    href="/"
+  <span
+    className="jsx-3156703236 t-gen--cell"
   >
-    TIMESHEET-GEN
-     
-  </a>
+    <a
+      href="/"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      TIMESHEET-GEN
+    </a>
+  </span>
   <ul
-    className="jsx-3281591941"
+    className="jsx-3156703236"
   >
     <li
-      className="jsx-3281591941 t-gen--cell"
+      className="jsx-3156703236 t-gen--cell"
     >
       <a
-        className="jsx-3281591941"
-        href=""
+        href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
       >
-        Documentation
+        Docs
       </a>
     </li>
     <li
-      className="jsx-3281591941 t-gen--cell"
+      className="jsx-3156703236 t-gen--cell"
     >
       <a
-        className="jsx-3281591941"
-        href=""
+        href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
       >
         Code
       </a>

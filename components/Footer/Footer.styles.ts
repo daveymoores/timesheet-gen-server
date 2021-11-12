@@ -9,7 +9,7 @@ export default css`
 
     max-width: var(--max-content-width);
     width: 100%;
-    height: 380px;
+    height: auto;
     margin: 0 auto;
   }
 
@@ -21,7 +21,7 @@ export default css`
 
   @media (prefers-color-scheme: light) {
     footer {
-      border: var(--lineWidth) solid var(--darkGreen);
+      border: var(--lineWidth) solid var(--darkGrey);
     }
   }
 
@@ -40,7 +40,7 @@ export default css`
 
   @media (prefers-color-scheme: light) {
     .bottom-bar {
-      border-top: var(--lineWidth) solid var(--darkGreen);
+      border-top: var(--lineWidth) solid var(--darkGrey);
     }
   }
 
@@ -62,6 +62,7 @@ export default css`
   }
 
   li:nth-child(2) {
-    padding: 0.7em;
+    padding: 0.7em 0.7em 0.7em 0;
+    border-left: none;
   }
 `;

@@ -1,10 +1,17 @@
 import Image from "next/image";
 import React from "react";
+import useSystemTheme from "react-use-system-theme";
 
 import NewsletterSubscribe from "../NewsletterSubscribe/NewsletterSubscribe";
 import styles from "./Footer.styles";
 
 const Footer: React.FC = () => {
+  const systemTheme = useSystemTheme("dark");
+
+  const githubImageSrc =
+    systemTheme === "dark"
+      ? "GitHub-Mark-Light-64px.svg"
+      : "GitHub-Mark-Dark-64px.svg";
   return (
     <>
       <footer>
@@ -18,7 +25,7 @@ const Footer: React.FC = () => {
               <Image
                 height={25}
                 width={25}
-                src="/GitHub-Mark-Light-64px.svg"
+                src={`/${githubImageSrc}`}
                 alt="GitHub icon"
               />
             </li>

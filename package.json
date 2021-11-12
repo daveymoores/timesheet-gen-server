@@ -6,7 +6,9 @@
     "build": "next build",
     "start": "NODE_ENV=production ts-node --project tsconfig.server.json server/index.ts",
     "lint": "next lint",
-    "test": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "checklist": "yarn test && yarn lint && yarn tsc"
   },
   "dependencies": {
     "@socket.io/mongo-adapter": "^0.1.0",
@@ -20,10 +22,12 @@
     "react-canvas-draw": "^1.2.1",
     "react-dom": "17.0.2",
     "react-use": "^17.3.1",
+    "react-use-system-theme": "^1.1.1",
     "socket.io": "^4.3.2",
     "socket.io-client": "^4.3.2"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^12.0.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",
     "@types/express": "^4.17.13",

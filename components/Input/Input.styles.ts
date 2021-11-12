@@ -9,5 +9,6 @@ export default css`
     padding: 0;
     margin-bottom: 25px;
     text-align: center;
+    border-radius: 0;
   }
 `;

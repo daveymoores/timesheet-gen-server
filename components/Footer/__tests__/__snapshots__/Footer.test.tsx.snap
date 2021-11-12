@@ -2,25 +2,25 @@
 
 exports[`Footer renders footer unchanged 1`] = `
 <footer
-  className="jsx-1890663278"
+  className="jsx-14923716"
 >
   <div
-    className="jsx-591473389 newsletter-subscribe"
+    className="jsx-3185220219 newsletter-subscribe"
   >
     <h3
-      className="jsx-591473389"
+      className="jsx-3185220219"
     >
       Subscribe to be the first to know about updates
     </h3>
     <form
-      className="jsx-591473389"
+      className="jsx-3185220219"
     >
       <input
-        className="jsx-353473093 t-gen--cell"
+        className="jsx-3861775726 t-gen--cell"
         type="text"
       />
       <button
-        className="jsx-836649993"
+        className="jsx-3604569186 "
         type="submit"
       >
         subscribe
@@ -28,23 +28,23 @@ exports[`Footer renders footer unchanged 1`] = `
     </form>
   </div>
   <div
-    className="jsx-1890663278 bottom-bar"
+    className="jsx-14923716 bottom-bar"
   >
     <ul
-      className="jsx-1890663278"
+      className="jsx-14923716"
     >
       <li
-        className="jsx-1890663278 t-gen--cell"
+        className="jsx-14923716 t-gen--cell"
       >
         <a
-          className="jsx-1890663278"
+          className="jsx-14923716"
           href=""
         >
           View on Github
         </a>
       </li>
       <li
-        className="jsx-1890663278 t-gen--cell"
+        className="jsx-14923716 t-gen--cell"
       >
         <span
           style={

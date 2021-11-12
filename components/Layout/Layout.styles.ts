@@ -12,6 +12,12 @@ export default css`
   }
 
   main {
-    padding: 50px 0;
+    padding: 25px 0;
+  }
+
+  @media screen and (min-width: 900px) {
+    main {
+      padding: 50px 0;
+    }
   }
 `;

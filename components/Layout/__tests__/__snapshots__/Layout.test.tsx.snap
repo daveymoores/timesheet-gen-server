@@ -2,38 +2,44 @@
 
 exports[`Layout renders Layout unchanged 1`] = `
 <div
-  className="jsx-1312961322 page-layout"
+  className="jsx-1081665710 page-layout"
 >
   <nav
-    className="jsx-3281591941"
+    className="jsx-3156703236"
     role="navigation"
   >
-    <a
-      className="jsx-3281591941 t-gen--cell"
-      href="/"
+    <span
+      className="jsx-3156703236 t-gen--cell"
     >
-      TIMESHEET-GEN
-       
-    </a>
+      <a
+        href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        TIMESHEET-GEN
+      </a>
+    </span>
     <ul
-      className="jsx-3281591941"
+      className="jsx-3156703236"
     >
       <li
-        className="jsx-3281591941 t-gen--cell"
+        className="jsx-3156703236 t-gen--cell"
       >
         <a
-          className="jsx-3281591941"
-          href=""
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
-          Documentation
+          Docs
         </a>
       </li>
       <li
-        className="jsx-3281591941 t-gen--cell"
+        className="jsx-3156703236 t-gen--cell"
       >
         <a
-          className="jsx-3281591941"
-          href=""
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
           Code
         </a>
@@ -41,28 +47,28 @@ exports[`Layout renders Layout unchanged 1`] = `
     </ul>
   </nav>
   <main
-    className="jsx-1312961322"
+    className="jsx-1081665710"
   />
   <footer
-    className="jsx-1890663278"
+    className="jsx-14923716"
   >
     <div
-      className="jsx-591473389 newsletter-subscribe"
+      className="jsx-3185220219 newsletter-subscribe"
     >
       <h3
-        className="jsx-591473389"
+        className="jsx-3185220219"
       >
         Subscribe to be the first to know about updates
       </h3>
       <form
-        className="jsx-591473389"
+        className="jsx-3185220219"
       >
         <input
-          className="jsx-353473093 t-gen--cell"
+          className="jsx-3861775726 t-gen--cell"
           type="text"
         />
         <button
-          className="jsx-836649993"
+          className="jsx-3604569186 "
           type="submit"
         >
           subscribe
@@ -70,23 +76,23 @@ exports[`Layout renders Layout unchanged 1`] = `
       </form>
     </div>
     <div
-      className="jsx-1890663278 bottom-bar"
+      className="jsx-14923716 bottom-bar"
     >
       <ul
-        className="jsx-1890663278"
+        className="jsx-14923716"
       >
         <li
-          className="jsx-1890663278 t-gen--cell"
+          className="jsx-14923716 t-gen--cell"
         >
           <a
-            className="jsx-1890663278"
+            className="jsx-14923716"
             href=""
           >
             View on Github
           </a>
         </li>
         <li
-          className="jsx-1890663278 t-gen--cell"
+          className="jsx-14923716 t-gen--cell"
         >
           <span
             style={

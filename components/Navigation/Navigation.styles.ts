@@ -15,23 +15,29 @@ export default css`
 
   @media (prefers-color-scheme: dark) {
     nav {
-      border-bottom: var(--lineWidth) solid var(--lightGreen);
+      border: var(--lineWidth) solid var(--lightGreen);
     }
   }
 
   @media (prefers-color-scheme: light) {
     nav {
-      border-bottom: var(--lineWidth) solid var(--darkGreen);
+      border: var(--lineWidth) solid var(--darkGrey);
     }
   }
 
-  nav > a {
+  nav > span {
     border-top: none;
     border-bottom: none;
     border-left: none;
     font-size: 18px;
     font-weight: 700;
     letter-spacing: 0.05em;
+  }
+
+  @media screen and (max-width: 501px) {
+    nav > span {
+      border-right: none;
+    }
   }
 
   ul {

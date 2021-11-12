@@ -1,8 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import CanvasDraw from "react-canvas-draw";
+import useSystemTheme from "react-use-system-theme";
 import { io } from "socket.io-client";
 
+import { QrCode } from "../../pages/[timesheet]";
 import palette from "../../utils/palette";
 import Cell from "../Cell/Cell";
 import styles from "./QrGroup.styles";
@@ -10,18 +12,46 @@ import styles from "./QrGroup.styles";
 interface QrGroupProps {
   cellTitle: string;
   signature: string;
-  qrCodeLight: string;
-  qrCodeDark: string;
+  qrCode: QrCode;
   signeeType: "user_signature" | "approver_signature";
 }
+
+interface Signature {
+  lines: Line[];
+  width: number;
+  height: number;
+}
+
+interface Line {
+  points: { x: number; y: number }[];
+  brushColor: string;
+  brushRadius: string;
+}
+
+const modifyBrushColor = (signature: string, color: string): Signature => {
+  try {
+    const signatureJson = JSON.parse(signature);
+    const lines = signatureJson.lines.map((line: Line) => ({
+      ...line,
+      brushColor: color,
+    }));
+
+    return {
+      ...signatureJson,
+      lines,
+    };
+  } catch (err) {
+    throw new Error("Error parsing the signature string");
+  }
+};
 
 const QrGroup: React.FC<QrGroupProps> = ({
   cellTitle,
   signature,
-  qrCodeDark,
-  qrCodeLight,
+  qrCode,
   signeeType,
 }) => {
+  const systemTheme = useSystemTheme("dark");
   const canvasRef = React.useRef<CanvasDraw>(null);
   const [signeeSignature, setSigneeSignature] = React.useState("");
 
@@ -40,7 +70,13 @@ const QrGroup: React.FC<QrGroupProps> = ({
 
   React.useEffect(() => {
     if (canvasRef.current && signeeSignature) {
-      canvasRef.current.loadSaveData(signeeSignature);
+      const modifiedSignature = JSON.stringify(
+        modifyBrushColor(
+          signeeSignature,
+          systemTheme === "dark" ? palette.LIGHT_GREEN : palette.DARK_GREY
+        )
+      );
+      canvasRef.current.loadSaveData(modifiedSignature);
     }
   }, [canvasRef.current, signeeSignature]);
 
@@ -53,15 +89,21 @@ const QrGroup: React.FC<QrGroupProps> = ({
             ref={canvasRef}
             canvasHeight={230}
             canvasWidth={230}
-            brushColor={palette.LIGHT_GREEN}
-            backgroundColor={palette.DARK_GREY}
+            brushColor={
+              systemTheme === "dark" ? palette.LIGHT_GREEN : palette.DARK_GREY
+            }
+            backgroundColor={
+              systemTheme === "dark" ? palette.DARK_GREY : palette.LIGHT_GREEN
+            }
             hideGrid
             disabled
           />
         ) : (
           <Image
             className="qr_code"
-            src={`data:image/svg+xml;utf8,${encodeURIComponent(qrCodeDark)}`}
+            src={`data:image/svg+xml;utf8,${encodeURIComponent(
+              qrCode[systemTheme as "light" | "dark"]
+            )}`}
             width={230}
             height={230}
           />
