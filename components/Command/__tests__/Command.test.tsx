@@ -9,7 +9,7 @@ const props: CommandProps = {
 };
 
 describe("Command", () => {
-  it("renders footer unchanged", () => {
+  it("renders Command unchanged", () => {
     const tree = renderer.create(<Command {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });

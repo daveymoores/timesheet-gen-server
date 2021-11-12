@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Command renders footer unchanged 1`] = `
+exports[`Command renders Command unchanged 1`] = `
 <section
   className="jsx-47506315"
 >

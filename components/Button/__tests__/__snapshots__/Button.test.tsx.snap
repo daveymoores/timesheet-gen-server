@@ -3,5 +3,7 @@
 exports[`Button renders button unchanged 1`] = `
 <button
   className="jsx-836649993"
-/>
+>
+  Click here
+</button>
 `;

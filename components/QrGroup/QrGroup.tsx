@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 
 import palette from "../../utils/palette";
 import Cell from "../Cell/Cell";
+import styles from "./QrGroup.styles";
 
 interface QrGroupProps {
   cellTitle: string;
@@ -66,15 +67,7 @@ const QrGroup: React.FC<QrGroupProps> = ({
           />
         )}
       </div>
-      <style jsx>
-        {`
-          .qr__group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 25px;
-          }
-        `}
-      </style>
+      <style jsx>{styles}</style>
     </>
   );
 };
