@@ -3,9 +3,7 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,8 +28,19 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      - name: Run lint
+        run: yarn lint
+
       - name: Run tsc
         run: yarn tsc
 
       - name: Run tests
         run: yarn test
+
+      - name: Generate coverage
+        run: yarn test:coverage
+
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v2.0.1
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
