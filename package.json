@@ -8,6 +8,7 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "checklist": "yarn test && yarn lint && yarn tsc"
   },
   "dependencies": {
