@@ -1,11 +1,13 @@
 import bodyParser from "body-parser";
 import express, { Express } from "express";
 import * as http from "http";
-import { MongoClient, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import next from "next";
 import * as socketIo from "socket.io";
 
 import { SignProps } from "../pages/[timesheet]/sign";
+import connect_to_db from "../utils/connect_to_db";
+import get_env_vars, { ENV_VARS } from "../utils/get_env_vars";
 
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev });
@@ -20,17 +22,8 @@ nextApp.prepare().then(async () => {
   const server: http.Server = http.createServer(app);
   const io: socketIo.Server = new socketIo.Server();
 
-  const mongo_uri = process.env.MONGODB_URI;
-  if (!mongo_uri) throw new Error("MONGODB_URI not set");
-
-  const mongoClient = new MongoClient(mongo_uri);
-  await mongoClient.connect();
-  const database = mongoClient.db("timesheet-gen");
-  const mongoCollection = database.collection("timesheet-temp-paths");
-  const mongodb = {
-    database,
-    mongoCollection,
-  };
+  const env_vars = get_env_vars(ENV_VARS);
+  const { mongoCollection } = await connect_to_db(env_vars);
 
   io.attach(server);
 
@@ -40,7 +33,7 @@ nextApp.prepare().then(async () => {
     const run = async ({ id, by, signature_string }: RequestBody) => {
       try {
         const query = { _id: new ObjectId(id) };
-        await mongodb.mongoCollection.findOneAndUpdate(
+        await mongoCollection.findOneAndUpdate(
           query,
           {
             $set: {
@@ -66,7 +59,7 @@ nextApp.prepare().then(async () => {
     const pipeline = [
       { $match: { "fullDocument.random_path": req.body.timesheet } },
     ];
-    const changeStream = mongodb.mongoCollection.watch(pipeline);
+    const changeStream = mongoCollection.watch(pipeline);
 
     io.on("connect", (socket: socketIo.Socket) => {
       changeStream.on("change", (next) => {

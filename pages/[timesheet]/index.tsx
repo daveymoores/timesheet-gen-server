@@ -1,4 +1,4 @@
-import { Document, MongoClient, ObjectId } from "mongodb";
+import { Document, ObjectId } from "mongodb";
 import { GetServerSideProps } from "next";
 import QRCode from "qrcode";
 import { ParsedUrlQuery } from "querystring";
@@ -8,6 +8,8 @@ import { io } from "socket.io-client";
 import Cell from "../../components/Cell/Cell";
 import Qr from "../../components/Qr/Qr";
 import Table from "../../components/Table/Table";
+import connect_to_db from "../../utils/connect_to_db";
+import get_env_vars, { ENV_VARS } from "../../utils/get_env_vars";
 import palette from "../../utils/palette";
 
 export interface QrCode {
@@ -170,31 +172,17 @@ export const getServerSideProps: GetServerSideProps<
     }
   };
 
-  const URI = process.env.MONGODB_URI;
-  const SITE_URL = process.env.SITE_URL;
-
-  if (!URI) {
-    throw new Error("MONGODB_URI is not set");
-  }
-
-  if (!SITE_URL) {
-    throw new Error("SITE_URL is not set");
-  }
-
-  const client = new MongoClient(URI);
+  const env_vars = get_env_vars(ENV_VARS);
 
   const run = async (
     random_path: string | undefined
   ): Promise<Document | null> => {
     try {
-      await client.connect();
-      const database = client.db("timesheet-gen");
-      const timesheet_collection = database.collection("timesheet-temp-paths");
-
+      const { mongoCollection } = await connect_to_db(env_vars);
       const query = { random_path };
-      return await timesheet_collection.findOne(query);
-    } finally {
-      await client.close();
+      return await mongoCollection.findOne(query);
+    } catch (error) {
+      throw new Error(`Unable to connect to db: ${error}`);
     }
   };
 
@@ -231,24 +219,24 @@ export const getServerSideProps: GetServerSideProps<
         project_number: 4567,
         user_sign_qr_code: {
           light: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
+            `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
             palette.LIGHT_GREEN,
             palette.DARK_GREY
           ),
           dark: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
+            `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
             palette.DARK_GREY,
             palette.LIGHT_GREEN
           ),
         },
         approver_sign_qr_code: {
           light: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
+            `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
             palette.LIGHT_GREEN,
             palette.DARK_GREY
           ),
           dark: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
+            `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
             palette.DARK_GREY,
             palette.LIGHT_GREEN
           ),
