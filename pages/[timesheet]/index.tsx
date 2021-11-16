@@ -59,6 +59,7 @@ const Index: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> = ({
   React.useEffect(() => {
     const socket = io();
     socket.on("connect", async () => {
+      console.log("has this connected?");
       socket.emit("join", timesheet);
     });
   }, []);

@@ -1,4 +1,5 @@
 import React from "react";
+import { io } from "socket.io-client";
 
 import { ParsedTimesheetDayLog, TimesheetProps } from "../../pages/[timesheet]";
 import QrGroup from "../QrGroup/QrGroup";
@@ -18,20 +19,34 @@ const Qr: React.FC<QrProps> = ({
   user_signature,
   approver_signature,
 }) => {
+  const [signature, setSignature] = React.useState({
+    user_signature,
+    approver_signature,
+  });
+
+  React.useEffect(() => {
+    const socket = io();
+    socket.on("signature_update", (data) => {
+      console.log("received update");
+      setSignature((signature) => ({
+        ...signature,
+        [data.signee]: data.signature,
+      }));
+    });
+  }, []);
+
   return (
     <>
       <div className="qr">
         <QrGroup
           cellTitle="Signee: Davey Moores"
-          signature={user_signature}
+          signature={signature["user_signature"]}
           qrCode={user_sign_qr_code}
-          signeeType={"user_signature"}
         />
         <QrGroup
           cellTitle="Approver: Jim Spencer Brown"
-          signature={approver_signature}
+          signature={signature["approver_signature"]}
           qrCode={approver_sign_qr_code}
-          signeeType={"approver_signature"}
         />
       </div>
       <style jsx>{styles}</style>

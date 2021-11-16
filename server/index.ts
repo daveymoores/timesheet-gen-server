@@ -57,9 +57,14 @@ nextApp.prepare().then(async () => {
     }
   });
 
+  app.get("/favicon.ico", function (req, res) {
+    res.sendStatus(204);
+  });
+
   app.get("/:timesheet", (req, res) => {
     const socket_io = req.app.get("socket_io");
-    ws(socket_io, mongoCollection, changeStream);
+    const path = req.url.substring(req.url.length - (req.url.length - 1));
+    ws(socket_io, mongoCollection, changeStream, path);
     return handle(req, res);
   });
 

@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import CanvasDraw from "react-canvas-draw";
 import useSystemTheme from "react-use-system-theme";
-import { io } from "socket.io-client";
 
 import { QrCode } from "../../pages/[timesheet]";
 import palette from "../../utils/palette";
@@ -13,7 +12,6 @@ interface QrGroupProps {
   cellTitle: string;
   signature: string;
   qrCode: QrCode;
-  signeeType: "user_signature" | "approver_signature";
 }
 
 interface Signature {
@@ -45,46 +43,27 @@ const modifyBrushColor = (signature: string, color: string): Signature => {
   }
 };
 
-const QrGroup: React.FC<QrGroupProps> = ({
-  cellTitle,
-  signature,
-  qrCode,
-  signeeType,
-}) => {
+const QrGroup: React.FC<QrGroupProps> = ({ cellTitle, signature, qrCode }) => {
   const systemTheme = useSystemTheme("dark");
   const canvasRef = React.useRef<CanvasDraw>(null);
-  const [signeeSignature, setSigneeSignature] = React.useState("");
 
   React.useEffect(() => {
-    if (signature) setSigneeSignature(signature);
-  }, [signature]);
-
-  React.useEffect(() => {
-    const socket = io();
-    socket.on("signature_update", (data) => {
-      if (data.signee === signeeType) {
-        setSigneeSignature(data.signature);
-      }
-    });
-  }, []);
-
-  React.useEffect(() => {
-    if (canvasRef.current && signeeSignature) {
+    if (canvasRef.current && signature) {
       const modifiedSignature = JSON.stringify(
         modifyBrushColor(
-          signeeSignature,
+          signature,
           systemTheme === "dark" ? palette.LIGHT_GREEN : palette.DARK_GREY
         )
       );
       canvasRef.current.loadSaveData(modifiedSignature);
     }
-  }, [canvasRef.current, signeeSignature]);
+  }, [canvasRef.current, signature]);
 
   return (
     <>
       <div className="qr__group">
         <Cell text={cellTitle} title />
-        {signeeSignature && typeof window !== "undefined" ? (
+        {signature && typeof window !== "undefined" ? (
           <React.Fragment>
             <CanvasDraw
               className="render-canvas"

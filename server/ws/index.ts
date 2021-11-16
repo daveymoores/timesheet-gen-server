@@ -6,10 +6,11 @@ import { TimesheetServer } from "../../pages/[timesheet]";
 const ws = (
   io: socketIo.Server,
   collection: Collection<TimesheetServer>,
-  changeStream: ChangeStream<TimesheetServer>
+  changeStream: ChangeStream<TimesheetServer>,
+  path: string
 ) => {
   const socket_id: string[] = [];
-  return io.sockets.on("connection", (socket: socketIo.Socket) => {
+  return io.on("connect", (socket: socketIo.Socket) => {
     socket_id.push(socket.id);
 
     // Remove subsequent connections with same ID
@@ -18,7 +19,6 @@ const ws = (
     }
 
     socket.on("join", async (timesheet) => {
-      console.log("join id >", timesheet);
       try {
         socket.join(timesheet);
         console.log(`User has joined ${timesheet}`);
@@ -27,35 +27,27 @@ const ws = (
       }
     });
 
+    console.log(">>>>> 1");
+    // this will fire for every update to the db
     changeStream.on("change", async (next) => {
-      const regex = new RegExp(`^[\\/^](\\w+)`);
-
-      if (!socket?.request?.headers?.referer) {
-        throw new Error("Referrer not found");
-      }
-
-      const pathname = new URL(socket.request.headers.referer).pathname;
-      const matches: RegExpExecArray | null = regex.exec(pathname);
-      const activeRoom = (matches || [])[1];
-
-      if (!activeRoom || !pathname) {
-        throw new Error("Path not found");
-      } else if (!next.documentKey) {
+      console.log(">>>>>> 2");
+      if (!next.documentKey) {
         throw new Error("No data returned");
       }
 
       try {
+        // ...so lets check for which document has been updated and compare it to the path
         const document = await collection.findOne(next.documentKey, {});
-        const timesheet = document?.random_path;
+        const modified_timesheet = document?.random_path;
 
         const updateFields = next?.updateDescription?.updatedFields;
 
-        if (!timesheet) {
+        if (!modified_timesheet) {
           throw new Error("There was an error");
         }
 
         if (!updateFields) {
-          io.sockets.in(timesheet).emit("signature_update", {
+          socket.emit("signature_update", {
             signature: null,
             error: true,
           });
@@ -73,10 +65,10 @@ const ws = (
           error: false,
         };
 
-        console.log("activeRoom: ", activeRoom);
-        console.log("timesheet: ", timesheet);
-        if (timesheet === activeRoom) {
-          io.sockets.emit("signature_update", payload);
+        console.log("activeRoom: ", path);
+        console.log("timesheet: ", modified_timesheet);
+        if (modified_timesheet === path) {
+          socket.emit("signature_update", payload);
         }
       } catch (err) {
         console.error(err);
