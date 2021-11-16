@@ -8,6 +8,7 @@ import * as socketIo from "socket.io";
 import { SignProps } from "../pages/[timesheet]/sign";
 import connect_to_db from "../utils/connect_to_db";
 import get_env_vars, { ENV_VARS } from "../utils/get_env_vars";
+import ws from "./ws";
 
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev });
@@ -24,9 +25,10 @@ nextApp.prepare().then(async () => {
 
   const env_vars = get_env_vars(ENV_VARS);
   const { mongoCollection } = await connect_to_db(env_vars);
+  const changeStream = mongoCollection.watch();
 
-  io.attach(server);
-
+  io.listen(server);
+  app.set("socket_io", io);
   app.use(bodyParser.json());
 
   app.post("/api/signature", async (req, res) => {
@@ -56,59 +58,8 @@ nextApp.prepare().then(async () => {
   });
 
   app.get("/:timesheet", (req, res) => {
-    const pipeline = [
-      { $match: { "fullDocument.random_path": req.body.timesheet } },
-    ];
-    const changeStream = mongoCollection.watch(pipeline);
-
-    io.on("connect", (socket: socketIo.Socket) => {
-      changeStream.on("change", (next) => {
-        const regex = new RegExp(`^[\\/^](\\w+)`);
-
-        if (!socket?.request?.headers?.referer) {
-          throw new Error("Referrer not found");
-        }
-
-        const pathname = new URL(socket.request.headers.referer).pathname;
-        const matches: RegExpExecArray | null = regex.exec(pathname);
-
-        if (!(matches || [])[1] || !pathname) {
-          throw new Error("Path not found");
-        }
-
-        const updateFields = next?.updateDescription?.updatedFields;
-
-        if (!updateFields) {
-          socket.emit("signature_update", { signature: null, error: true });
-          changeStream.close();
-          return;
-        }
-
-        const signee = Object.keys(updateFields).find(
-          (key: string) => key.indexOf("_signature") > -1
-        );
-
-        const payload = {
-          signature: signee ? updateFields[signee] : null,
-          signee,
-          error: false,
-        };
-
-        console.log("activeRoom: ", matches![1]);
-        socket.emit("signature_update", payload);
-      });
-
-      socket.on("join", async (timesheet) => {
-        console.log("join id >", timesheet);
-        try {
-          socket.join(timesheet);
-          console.log(`User has joined ${timesheet}`);
-        } catch (err) {
-          console.log(err);
-        }
-      });
-    });
-
+    const socket_io = req.app.get("socket_io");
+    ws(socket_io, mongoCollection, changeStream);
     return handle(req, res);
   });
 

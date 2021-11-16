@@ -6,4 +6,8 @@ export default css`
     flex-direction: column;
     margin-bottom: 25px;
   }
+
+  .print-canvas {
+    display: none;
+  }
 `;

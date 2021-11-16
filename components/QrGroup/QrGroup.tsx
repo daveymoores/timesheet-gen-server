@@ -85,19 +85,32 @@ const QrGroup: React.FC<QrGroupProps> = ({
       <div className="qr__group">
         <Cell text={cellTitle} title />
         {signeeSignature && typeof window !== "undefined" ? (
-          <CanvasDraw
-            ref={canvasRef}
-            canvasHeight={230}
-            canvasWidth={230}
-            brushColor={
-              systemTheme === "dark" ? palette.LIGHT_GREEN : palette.DARK_GREY
-            }
-            backgroundColor={
-              systemTheme === "dark" ? palette.DARK_GREY : palette.LIGHT_GREEN
-            }
-            hideGrid
-            disabled
-          />
+          <React.Fragment>
+            <CanvasDraw
+              className="render-canvas"
+              ref={canvasRef}
+              canvasHeight={230}
+              canvasWidth={230}
+              brushColor={
+                systemTheme === "dark" ? palette.LIGHT_GREEN : palette.DARK_GREY
+              }
+              backgroundColor={
+                systemTheme === "dark" ? palette.DARK_GREY : palette.LIGHT_GREEN
+              }
+              hideGrid
+              disabled
+            />
+            {/*<CanvasDraw*/}
+            {/*  className="print-canvas"*/}
+            {/*  ref={canvasRef}*/}
+            {/*  canvasHeight={230}*/}
+            {/*  canvasWidth={230}*/}
+            {/*  brushColor={palette.DARK_GREY}*/}
+            {/*  backgroundColor="#FFFFFF"*/}
+            {/*  hideGrid*/}
+            {/*  disabled*/}
+            {/*/>*/}
+          </React.Fragment>
         ) : (
           <Image
             className="qr_code"

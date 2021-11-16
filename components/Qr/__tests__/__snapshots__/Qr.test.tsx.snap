@@ -5,7 +5,7 @@ exports[`Qr renders Qr unchanged 1`] = `
   className="jsx-1318874441 qr"
 >
   <div
-    className="jsx-1436220098 qr__group"
+    className="jsx-4112199313 qr__group"
   >
     <div
       className="jsx-2505651778 timesheet__cell timesheet__cell--title"
@@ -131,7 +131,7 @@ exports[`Qr renders Qr unchanged 1`] = `
     </span>
   </div>
   <div
-    className="jsx-1436220098 qr__group"
+    className="jsx-4112199313 qr__group"
   >
     <div
       className="jsx-2505651778 timesheet__cell timesheet__cell--title"
