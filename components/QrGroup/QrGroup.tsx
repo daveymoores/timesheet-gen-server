@@ -52,6 +52,7 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
     const systemTheme = useSystemTheme("dark");
     const renderCanvasRef = React.useRef<CanvasDraw>(null);
     const printCanvasRef = React.useRef<CanvasDraw>(null);
+    const signatureJson = JSON.parse(signature);
 
     React.useEffect(() => {
       if (renderCanvasRef.current && printCanvasRef.current && signature) {
@@ -79,8 +80,8 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
                 <CanvasDraw
                   className="render-canvas"
                   ref={renderCanvasRef}
-                  canvasHeight={230}
-                  canvasWidth={230}
+                  canvasHeight={signatureJson.height}
+                  canvasWidth={signatureJson.width}
                   brushColor={
                     systemTheme === "dark"
                       ? palette.LIGHT_GREEN
