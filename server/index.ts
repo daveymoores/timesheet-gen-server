@@ -21,14 +21,12 @@ interface RequestBody extends Omit<SignProps, "timesheet"> {
 nextApp.prepare().then(async () => {
   const app: Express = express();
   const server: http.Server = http.createServer(app);
-  const io: socketIo.Server = new socketIo.Server();
+  const io: socketIo.Server = new socketIo.Server(server);
 
   const env_vars = get_env_vars(ENV_VARS);
   const { mongoCollection } = await connect_to_db(env_vars);
   const changeStream = mongoCollection.watch();
 
-  io.listen(server);
-  app.set("socket_io", io);
   app.use(bodyParser.json());
 
   app.post("/api/signature", async (req, res) => {
@@ -61,10 +59,9 @@ nextApp.prepare().then(async () => {
     res.sendStatus(204);
   });
 
+  ws(io, mongoCollection, changeStream);
+
   app.get("/:timesheet", (req, res) => {
-    const socket_io = req.app.get("socket_io");
-    const path = req.url.substring(req.url.length - (req.url.length - 1));
-    ws(socket_io, mongoCollection, changeStream, path);
     return handle(req, res);
   });
 

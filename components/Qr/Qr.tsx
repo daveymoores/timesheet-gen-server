@@ -1,6 +1,6 @@
 import React from "react";
-import { io } from "socket.io-client";
 
+import SocketIoContext from "../../context/SocketIoContext";
 import { ParsedTimesheetDayLog, TimesheetProps } from "../../pages/[timesheet]";
 import QrGroup from "../QrGroup/QrGroup";
 import styles from "./Qr.styles";
@@ -19,15 +19,14 @@ const Qr: React.FC<QrProps> = ({
   user_signature,
   approver_signature,
 }) => {
+  const { socket } = React.useContext(SocketIoContext);
   const [signature, setSignature] = React.useState({
     user_signature,
     approver_signature,
   });
 
   React.useEffect(() => {
-    const socket = io();
     socket.on("signature_update", (data) => {
-      console.log("received update");
       setSignature((signature) => ({
         ...signature,
         [data.signee]: data.signature,

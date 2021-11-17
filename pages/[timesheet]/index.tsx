@@ -4,10 +4,10 @@ import QRCode from "qrcode";
 import { ParsedUrlQuery } from "querystring";
 import React, { ReactInstance } from "react";
 import ReactToPrint from "react-to-print";
-import { io } from "socket.io-client";
 
 import Button from "../../components/Button/Button";
 import Timesheet from "../../components/Timesheet/Timesheet";
+import SocketIoContext from "../../context/SocketIoContext";
 import connect_to_db from "../../utils/connect_to_db";
 import get_env_vars, { ENV_VARS } from "../../utils/get_env_vars";
 import palette from "../../utils/palette";
@@ -55,11 +55,11 @@ const Index: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> = ({
   params: { timesheet, timesheet_log, ...props },
 }) => {
   const componentRef = React.useRef<ReactInstance>(null);
+  const { socket } = React.useContext(SocketIoContext);
 
   React.useEffect(() => {
-    const socket = io();
-    socket.on("connect", async () => {
-      console.log("has this connected?");
+    socket.on("connect", () => {
+      console.log("Socket.io client connected");
       socket.emit("join", timesheet);
     });
   }, []);
