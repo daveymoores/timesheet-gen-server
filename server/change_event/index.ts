@@ -2,48 +2,43 @@ import * as socketIo from "socket.io";
 
 import { TimesheetServer } from "../../pages/[timesheet]";
 
-const change_event =
-  (io: socketIo.Server) =>
-  (next: {
-    documentKey: string;
-    fullDocument: TimesheetServer;
-    updateDescription: { updatedFields: TimesheetServer };
-  }) => {
-    console.log("Mongodb change event!");
-    // at the very least there should be document ID
-    if (!next.documentKey) {
-      throw new Error("No data returned");
-    }
+export interface ChangeEventNext {
+  documentKey: string | null;
+  fullDocument: TimesheetServer | null;
+  updateDescription: { updatedFields: TimesheetServer };
+}
 
-    try {
-      const modified_timesheet = next?.fullDocument?.random_path;
-      const updateFields = next?.updateDescription?.updatedFields;
+const change_event = (io: socketIo.Server) => (next: ChangeEventNext) => {
+  // at the very least there should be document ID
+  if (!next.documentKey) {
+    throw new Error("No data returned");
+  }
 
-      // if fields haven't been updated then prevent this from firing
-      if (!updateFields) {
-        return;
-      }
+  const modified_timesheet = next?.fullDocument?.random_path;
+  const updateFields = next?.updateDescription?.updatedFields;
 
-      if (!modified_timesheet) {
-        throw new Error(
-          "Couldn't find the modified timesheet from change stream"
-        );
-      }
+  // if fields haven't been updated then prevent this from firing
+  if (!updateFields) {
+    return;
+  }
 
-      const signee = Object.keys(updateFields).find(
-        (key: string) => key.indexOf("_signature") > -1
-      ) as "user_signature" | "approver_signature";
+  if (!modified_timesheet) {
+    throw new Error("Couldn't find the modified timesheet from change stream");
+  }
 
-      const payload = {
-        signature: signee ? updateFields[signee] : null,
-        signee,
-        error: false,
-      };
+  console.log("Mongodb change event for timesheet: ", modified_timesheet);
 
-      io.to(modified_timesheet).emit("signature_update", payload);
-    } catch (err) {
-      console.error(err);
-    }
+  const signee = Object.keys(updateFields).find(
+    (key: string) => key.indexOf("_signature") > -1
+  ) as "user_signature" | "approver_signature";
+
+  const payload = {
+    signature: signee ? updateFields[signee] : null,
+    signee,
+    error: false,
   };
+
+  io.to(modified_timesheet).emit("signature_update", payload);
+};
 
 export default change_event;
