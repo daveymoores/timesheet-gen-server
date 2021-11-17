@@ -9,6 +9,7 @@ import { SignProps } from "../pages/[timesheet]/sign";
 import connect_to_db from "../utils/connect_to_db";
 import get_env_vars, { ENV_VARS } from "../utils/get_env_vars";
 import change_event from "./change_event";
+import { options, pipeline } from "./pipeline";
 import ws from "./ws";
 
 const dev = process.env.NODE_ENV !== "production";
@@ -29,32 +30,7 @@ nextApp.prepare().then(async () => {
   // watch only accepts Document[] for some reason
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const changeStream = mongoCollection.watch(
-    [
-      {
-        $match: {
-          $or: [
-            {
-              operationType: "update",
-              $or: [
-                {
-                  "updateDescription.updatedFields.user_signature": {
-                    $exists: 1,
-                  },
-                },
-                {
-                  "updateDescription.updatedFields.approver_signature": {
-                    $exists: 1,
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      },
-    ],
-    { fullDocument: "updateLookup" }
-  );
+  const changeStream = mongoCollection.watch(pipeline, options);
   // curry the io client into the change event function
   const updateOnChange = change_event(io);
   // this will fire for every update to the db
