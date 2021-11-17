@@ -7,6 +7,10 @@ export default css`
     margin-bottom: 25px;
   }
 
+  .render-canvas {
+    display: block;
+  }
+
   .print-canvas {
     display: none;
   }

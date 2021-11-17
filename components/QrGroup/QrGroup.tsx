@@ -43,22 +43,31 @@ const modifyBrushColor = (signature: string, color: string): Signature => {
   }
 };
 
+const modifySignature = (signature: string, color: palette) => {
+  return JSON.stringify(modifyBrushColor(signature, color));
+};
+
 const QrGroup: React.FC<QrGroupProps> = React.memo(
   ({ cellTitle, signature, qrCode }) => {
     const systemTheme = useSystemTheme("dark");
-    const canvasRef = React.useRef<CanvasDraw>(null);
+    const renderCanvasRef = React.useRef<CanvasDraw>(null);
+    const printCanvasRef = React.useRef<CanvasDraw>(null);
 
     React.useEffect(() => {
-      if (canvasRef.current && signature) {
-        const modifiedSignature = JSON.stringify(
-          modifyBrushColor(
+      if (renderCanvasRef.current && printCanvasRef.current && signature) {
+        // change signature colour by system theme for web version
+        renderCanvasRef.current.loadSaveData(
+          modifySignature(
             signature,
             systemTheme === "dark" ? palette.LIGHT_GREEN : palette.DARK_GREY
           )
         );
-        canvasRef.current.loadSaveData(modifiedSignature);
+        // print version is always dark
+        printCanvasRef.current.loadSaveData(
+          modifySignature(signature, palette.DARK_GREY)
+        );
       }
-    }, [canvasRef.current, signature]);
+    }, [renderCanvasRef.current, printCanvasRef.current, signature]);
 
     return (
       <>
@@ -66,34 +75,38 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
           <Cell text={cellTitle} title />
           {signature && typeof window !== "undefined" ? (
             <React.Fragment>
-              <CanvasDraw
-                className="render-canvas"
-                ref={canvasRef}
-                canvasHeight={230}
-                canvasWidth={230}
-                brushColor={
-                  systemTheme === "dark"
-                    ? palette.LIGHT_GREEN
-                    : palette.DARK_GREY
-                }
-                backgroundColor={
-                  systemTheme === "dark"
-                    ? palette.DARK_GREY
-                    : palette.LIGHT_GREEN
-                }
-                hideGrid
-                disabled
-              />
-              {/*<CanvasDraw*/}
-              {/*  className="print-canvas"*/}
-              {/*  ref={canvasRef}*/}
-              {/*  canvasHeight={230}*/}
-              {/*  canvasWidth={230}*/}
-              {/*  brushColor={palette.DARK_GREY}*/}
-              {/*  backgroundColor="#FFFFFF"*/}
-              {/*  hideGrid*/}
-              {/*  disabled*/}
-              {/*/>*/}
+              <div className="render-canvas">
+                <CanvasDraw
+                  className="render-canvas"
+                  ref={renderCanvasRef}
+                  canvasHeight={230}
+                  canvasWidth={230}
+                  brushColor={
+                    systemTheme === "dark"
+                      ? palette.LIGHT_GREEN
+                      : palette.DARK_GREY
+                  }
+                  backgroundColor={
+                    systemTheme === "dark"
+                      ? palette.DARK_GREY
+                      : palette.LIGHT_GREEN
+                  }
+                  hideGrid
+                  disabled
+                />
+              </div>
+              <div className="print-canvas">
+                <CanvasDraw
+                  className="print-canvas"
+                  ref={printCanvasRef}
+                  canvasHeight={230}
+                  canvasWidth={230}
+                  brushColor={palette.DARK_GREY}
+                  backgroundColor="#FFFFFF"
+                  hideGrid
+                  disabled
+                />
+              </div>
             </React.Fragment>
           ) : (
             <Image
@@ -111,5 +124,7 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
     );
   }
 );
+
+QrGroup.displayName = "QrGroup";
 
 export default QrGroup;
