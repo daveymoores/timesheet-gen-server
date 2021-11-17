@@ -1,11 +1,16 @@
 import bodyParser from "body-parser";
 import express, { Express } from "express";
 import * as http from "http";
-import { MongoClient, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import next from "next";
 import * as socketIo from "socket.io";
 
 import { SignProps } from "../pages/[timesheet]/sign";
+import connect_to_db from "../utils/connect_to_db";
+import get_env_vars, { ENV_VARS } from "../utils/get_env_vars";
+import change_event from "./change_event";
+import { options, pipeline } from "./pipeline";
+import ws from "./ws";
 
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev });
@@ -18,21 +23,18 @@ interface RequestBody extends Omit<SignProps, "timesheet"> {
 nextApp.prepare().then(async () => {
   const app: Express = express();
   const server: http.Server = http.createServer(app);
-  const io: socketIo.Server = new socketIo.Server();
+  const io: socketIo.Server = new socketIo.Server(server);
 
-  const mongo_uri = process.env.MONGODB_URI;
-  if (!mongo_uri) throw new Error("MONGODB_URI not set");
-
-  const mongoClient = new MongoClient(mongo_uri);
-  await mongoClient.connect();
-  const database = mongoClient.db("timesheet-gen");
-  const mongoCollection = database.collection("timesheet-temp-paths");
-  const mongodb = {
-    database,
-    mongoCollection,
-  };
-
-  io.attach(server);
+  const env_vars = get_env_vars(ENV_VARS);
+  const { mongoCollection } = await connect_to_db(env_vars);
+  // watch only accepts Document[] for some reason
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const changeStream = mongoCollection.watch(pipeline, options);
+  // curry the io client into the change event function
+  const updateOnChange = change_event(io);
+  // this will fire for every update to the db
+  changeStream.on("change", updateOnChange);
 
   app.use(bodyParser.json());
 
@@ -40,7 +42,7 @@ nextApp.prepare().then(async () => {
     const run = async ({ id, by, signature_string }: RequestBody) => {
       try {
         const query = { _id: new ObjectId(id) };
-        await mongodb.mongoCollection.findOneAndUpdate(
+        await mongoCollection.findOneAndUpdate(
           query,
           {
             $set: {
@@ -62,66 +64,19 @@ nextApp.prepare().then(async () => {
     }
   });
 
+  app.get("/favicon.ico", function (req, res) {
+    res.sendStatus(204);
+  });
+
+  ws(io);
+
   app.get("/:timesheet", (req, res) => {
-    const pipeline = [
-      { $match: { "fullDocument.random_path": req.body.timesheet } },
-    ];
-    const changeStream = mongodb.mongoCollection.watch(pipeline);
-
-    io.on("connect", (socket: socketIo.Socket) => {
-      changeStream.on("change", (next) => {
-        const regex = new RegExp(`^[\\/^](\\w+)`);
-
-        if (!socket?.request?.headers?.referer) {
-          throw new Error("Referrer not found");
-        }
-
-        const pathname = new URL(socket.request.headers.referer).pathname;
-        const matches: RegExpExecArray | null = regex.exec(pathname);
-
-        if (!(matches || [])[1] || !pathname) {
-          throw new Error("Path not found");
-        }
-
-        const updateFields = next?.updateDescription?.updatedFields;
-
-        if (!updateFields) {
-          socket.emit("signature_update", { signature: null, error: true });
-          changeStream.close();
-          return;
-        }
-
-        const signee = Object.keys(updateFields).find(
-          (key: string) => key.indexOf("_signature") > -1
-        );
-
-        const payload = {
-          signature: signee ? updateFields[signee] : null,
-          signee,
-          error: false,
-        };
-
-        console.log("activeRoom: ", matches![1]);
-        socket.emit("signature_update", payload);
-      });
-
-      socket.on("join", async (timesheet) => {
-        console.log("join id >", timesheet);
-        try {
-          socket.join(timesheet);
-          console.log(`User has joined ${timesheet}`);
-        } catch (err) {
-          console.log(err);
-        }
-      });
-    });
-
     return handle(req, res);
   });
 
   app.get("*", (req, res) => handle(req, res));
 
   server.listen(3000, () => {
-    console.log("Ready on http://localhost:3000");
+    console.log("Ready on ", process.env.SITE_URL);
   });
 });

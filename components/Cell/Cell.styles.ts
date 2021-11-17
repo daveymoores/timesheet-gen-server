@@ -5,6 +5,7 @@ export default css`
     margin-top: calc(-1 * var(--lineWidth));
     padding: 0.82em 1.2em;
     font-size: 16px;
+    text-align: center;
   }
 
   .timesheet__cell:first-child {

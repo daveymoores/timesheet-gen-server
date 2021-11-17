@@ -1,13 +1,15 @@
-import { Document, MongoClient, ObjectId } from "mongodb";
+import { Document, ObjectId } from "mongodb";
 import { GetServerSideProps } from "next";
 import QRCode from "qrcode";
 import { ParsedUrlQuery } from "querystring";
-import React from "react";
-import { io } from "socket.io-client";
+import React, { ReactInstance } from "react";
+import ReactToPrint from "react-to-print";
 
-import Cell from "../../components/Cell/Cell";
-import Qr from "../../components/Qr/Qr";
-import Table from "../../components/Table/Table";
+import Button from "../../components/Button/Button";
+import Timesheet from "../../components/Timesheet/Timesheet";
+import SocketIoContext from "../../context/SocketIoContext";
+import connect_to_db from "../../utils/connect_to_db";
+import get_env_vars, { ENV_VARS } from "../../utils/get_env_vars";
 import palette from "../../utils/palette";
 
 export interface QrCode {
@@ -15,7 +17,7 @@ export interface QrCode {
   dark: string;
 }
 
-interface TimesheetDayLog {
+export interface TimesheetDayLog {
   hours: number;
   user_edited: 0 | 1;
   weekend: 0 | 1;
@@ -45,100 +47,48 @@ export interface TimesheetProps<T> {
   approver_signature: string;
 }
 
-const Timesheet: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> =
-  ({
-    params: {
-      timesheet,
-      name,
-      email,
-      namespace,
-      project_number,
-      client_name,
-      client_contact_person,
-      address,
-      timesheet_log,
-      month_year,
-      total_hours,
-      user_sign_qr_code,
-      approver_sign_qr_code,
-      user_signature,
-      approver_signature,
-    },
-  }) => {
-    React.useEffect(() => {
-      const socket = io();
-      socket.on("connect", async () => {
-        socket.emit("join", timesheet);
-      });
-    }, []);
+export interface TimesheetServer extends TimesheetProps<TimesheetDayLog> {
+  random_path: string;
+}
 
-    return (
-      <>
-        <article className="timesheet">
-          <header>
-            <h1 className="timesheet--title">Timesheet: {month_year}</h1>
-          </header>
+const Index: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> = ({
+  params: { timesheet, timesheet_log, ...props },
+}) => {
+  const componentRef = React.useRef<ReactInstance>(null);
+  const { socket } = React.useContext(SocketIoContext);
 
-          <div className="timesheet--row">
-            <div className="timesheet__cell-group">
-              <Cell text="Client:" title />
-              <Cell text={client_name} />
-              <Cell text={client_contact_person} />
-              <Cell text={address} />
-            </div>
+  React.useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Socket.io client connected");
+      socket.emit("join", timesheet);
+    });
+  }, []);
 
-            <div className="timesheet__cell-group">
-              <Cell text="Contractor:" title />
-              <Cell text={name} />
-              <Cell text={email} />
-            </div>
-          </div>
-
-          <div className="timesheet--row">
-            <div className="timesheet__cell-group">
-              <Cell text={`Project: ${namespace}`} title />
-              <Cell text={`Project number: ${project_number}`} title />
-            </div>
-          </div>
-
-          <Table timesheet_log={timesheet_log} total_hours={total_hours} />
-
-          <Qr
-            user_sign_qr_code={user_sign_qr_code}
-            approver_sign_qr_code={approver_sign_qr_code}
-            user_signature={user_signature}
-            approver_signature={approver_signature}
-          />
-        </article>
-        <style jsx>{`
-          .timesheet {
-            max-width: calc(
-              ${timesheet_log.length} * var(--cellHeight) +
-                ${timesheet_log.length} * var(--lineWidth)
-            );
-            margin: auto;
-          }
-
-          .timesheet--row {
-            display: flex;
-            align-items: start;
-          }
-
-          .timesheet--title {
-            font-size: 52px;
-            margin: 80px 0 80px 0;
-          }
-
-          .timesheet__cell-group {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            margin: 0 60px 60px 0;
-          }
-        `}</style>
-      </>
-    );
-  };
+  return (
+    <React.Fragment>
+      <article className="timesheet">
+        <ReactToPrint
+          trigger={() => <Button text="Print" />}
+          content={() => componentRef.current}
+        />
+        <Timesheet
+          ref={componentRef}
+          {...props}
+          timesheet_log={timesheet_log}
+        />
+      </article>
+      <style jsx>{`
+        .timesheet {
+          max-width: calc(
+            ${timesheet_log.length} * var(--cellHeight) +
+              ${timesheet_log.length} * var(--lineWidth)
+          );
+          margin: auto;
+        }
+      `}</style>
+    </React.Fragment>
+  );
+};
 
 interface TimesheetGenServerResponse<T> {
   props: {
@@ -153,7 +103,7 @@ interface Context extends ParsedUrlQuery {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export const getServerSideProps: GetServerSideProps<
-  TimesheetGenServerResponse<TimesheetProps<TimesheetDayLog>>,
+  TimesheetGenServerResponse<TimesheetServer>,
   Context
 > = async (context) => {
   const generateQR = async (text: string, light: string, dark: string) => {
@@ -170,31 +120,17 @@ export const getServerSideProps: GetServerSideProps<
     }
   };
 
-  const URI = process.env.MONGODB_URI;
-  const SITE_URL = process.env.SITE_URL;
-
-  if (!URI) {
-    throw new Error("MONGODB_URI is not set");
-  }
-
-  if (!SITE_URL) {
-    throw new Error("SITE_URL is not set");
-  }
-
-  const client = new MongoClient(URI);
+  const env_vars = get_env_vars(ENV_VARS);
 
   const run = async (
     random_path: string | undefined
   ): Promise<Document | null> => {
     try {
-      await client.connect();
-      const database = client.db("timesheet-gen");
-      const timesheet_collection = database.collection("timesheet-temp-paths");
-
+      const { mongoCollection } = await connect_to_db(env_vars);
       const query = { random_path };
-      return await timesheet_collection.findOne(query);
-    } finally {
-      await client.close();
+      return await mongoCollection.findOne(query);
+    } catch (error) {
+      throw new Error(`Unable to connect to db: ${error}`);
     }
   };
 
@@ -231,24 +167,24 @@ export const getServerSideProps: GetServerSideProps<
         project_number: 4567,
         user_sign_qr_code: {
           light: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
+            `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
             palette.LIGHT_GREEN,
             palette.DARK_GREY
           ),
           dark: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
+            `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
             palette.DARK_GREY,
             palette.LIGHT_GREEN
           ),
         },
         approver_sign_qr_code: {
           light: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
+            `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
             palette.LIGHT_GREEN,
             palette.DARK_GREY
           ),
           dark: await generateQR(
-            `${SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
+            `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=approver`,
             palette.DARK_GREY,
             palette.LIGHT_GREEN
           ),
@@ -260,4 +196,4 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
-export default Timesheet;
+export default Index;

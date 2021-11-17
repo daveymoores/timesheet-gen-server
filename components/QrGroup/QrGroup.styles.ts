@@ -6,4 +6,12 @@ export default css`
     flex-direction: column;
     margin-bottom: 25px;
   }
+
+  .render-canvas {
+    display: block;
+  }
+
+  .print-canvas {
+    display: none;
+  }
 `;

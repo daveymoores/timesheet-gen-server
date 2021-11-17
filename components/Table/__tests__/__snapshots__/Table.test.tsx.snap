@@ -8,10 +8,10 @@ exports[`Table renders Table unchanged 1`] = `
     className="jsx-672558350 jsx-3042604719 timesheet__table--wrapper"
   >
     <div
-      className="jsx-2505651778 timesheet__cell timesheet__cell--title"
+      className="jsx-16556622 timesheet__cell timesheet__cell--title"
     >
       <p
-        className="jsx-2505651778"
+        className="jsx-16556622"
       >
         Days:
       </p>
@@ -43,10 +43,10 @@ exports[`Table renders Table unchanged 1`] = `
       </div>
     </div>
     <div
-      className="jsx-2505651778 timesheet__cell timesheet__cell--title"
+      className="jsx-16556622 timesheet__cell timesheet__cell--title"
     >
       <p
-        className="jsx-2505651778"
+        className="jsx-16556622"
       >
         Total hours worked: 48
       </p>
