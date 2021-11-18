@@ -1,4 +1,4 @@
-name: 'Production checks'
+name: 'Production checks & deployment'
 on:
   push:
     branches:
@@ -48,6 +48,11 @@ jobs:
           
   deploy:
     runs-on: self-hosted
+    
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+        
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -61,6 +66,9 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
 
       - name: Build application
         run: yarn build
