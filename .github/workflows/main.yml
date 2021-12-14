@@ -57,18 +57,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+      - name: Build Docker image
+        run: docker build . -t timesheet-gen-server:0.1 --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }} --build-arg MONGODB_DB=${{ secrets.MONGODB_DB }} --build-arg MONGODB_COLLECTION=${{ secrets.MONGODB_COLLECTION }} --build-arg SITE_URL=${{ secrets.SITE_URL }}
 
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Stop running Docker containers
+        run: docker kill $(docker ps -q)
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+      - name: Remove all Docker containers
+        run: docker rm $(docker ps -a -q)
 
-      - name: Build application
-        run: yarn build
+      - name: Run Docker image
+        run: docker run -d -p 3000:3000 timesheet-gen-server:0.1
+
+      - name: Remove untagged Images
+        run: docker rmi $(docker images | grep "none" | awk '{print $3}')
