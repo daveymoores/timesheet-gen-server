@@ -58,11 +58,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Build Docker image
-        run: docker build . -t timesheet-gen-server:0.1
-              --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }}
-              --build-arg MONGODB_DB=${{ secrets.MONGODB_DB }}
-              --build-arg MONGODB_COLLECTION=${{ secrets.MONGODB_COLLECTION }}
-              --build-arg SITE_URL=${{ secrets.SITE_URL }}
+        run: docker build . -t timesheet-gen-server:0.1 --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }} --build-arg MONGODB_DB=${{ secrets.MONGODB_DB }} --build-arg MONGODB_COLLECTION=${{ secrets.MONGODB_COLLECTION }} --build-arg SITE_URL=${{ secrets.SITE_URL }}
 
       - name: Stop running Docker containers
         run: docker kill $(docker ps -q)
