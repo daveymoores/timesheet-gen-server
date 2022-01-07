@@ -12,12 +12,6 @@ export interface TimesheetDayLog {
   weekend: boolean;
 }
 
-export interface ParsedTimesheetDayLog
-  extends Omit<TimesheetDayLog, "user_edited" | "weekend"> {
-  user_edited: boolean;
-  weekend: boolean;
-}
-
 export interface Timesheet {
   namespace: string;
   timesheet: TimesheetDayLog[];

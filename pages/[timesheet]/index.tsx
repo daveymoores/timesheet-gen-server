@@ -13,19 +13,22 @@ import {
   TimesheetResponseProps,
 } from "../../types/Timesheet.types";
 import connect_to_db from "../../utils/connect_to_db";
+import getDays from "../../utils/get_days";
 import get_env_vars, { ENV_VARS } from "../../utils/get_env_vars";
 import palette from "../../utils/palette";
 
 const Index: React.FC<{ params: TimesheetProps }> = ({
-  params: { timesheet, timesheet_log, ...props },
+  params: { timesheets, path, ...props },
 }) => {
   const componentRef = React.useRef<ReactInstance>(null);
   const { socket } = React.useContext(SocketIoContext);
 
+  const days = getDays(props.month_year);
+
   React.useEffect(() => {
     socket.on("connect", () => {
       console.log("Socket.io client connected");
-      socket.emit("join", timesheet);
+      socket.emit("join", path);
     });
   }, []);
 
@@ -39,14 +42,15 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
         <Timesheet
           ref={componentRef}
           {...props}
-          timesheet_log={timesheet_log}
+          path={path}
+          timesheets={timesheets}
+          days={days}
         />
       </article>
       <style jsx>{`
         .timesheet {
           max-width: calc(
-            ${timesheet_log.length} * var(--cellHeight) +
-              ${timesheet_log.length} * var(--lineWidth)
+            ${days} * var(--cellHeight) + ${days} * var(--lineWidth)
           );
           margin: auto;
         }
