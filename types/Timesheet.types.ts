@@ -1,6 +1,3 @@
-import { ObjectId } from "mongodb";
-import { Nullable } from "mongodb/src/mongo_types";
-
 export interface QrCode {
   light?: string;
   dark?: string;
@@ -16,7 +13,7 @@ export interface Timesheet {
   namespace: string;
   timesheet: TimesheetDayLog[];
   total_hours: number;
-  project_number: Nullable<string>;
+  project_number: string | null;
 }
 
 export interface Client {
@@ -47,12 +44,12 @@ export interface TimesheetProps {
   month_year: string;
   user_sign_qr_code: QrCode;
   approver_sign_qr_code: QrCode;
-  user_signature: Nullable<string>;
-  approver_signature: Nullable<string>;
+  user_signature: string | null;
+  approver_signature: string | null;
 }
 
 export interface TimesheetResponseProps {
-  _id: ObjectId;
+  _id: string;
   creation_date: Date;
   month_year: string;
   random_path: string;

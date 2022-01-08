@@ -1,6 +1,6 @@
 import * as socketIo from "socket.io";
 
-import { TimesheetServer } from "../../pages/[timesheet]";
+import { TimesheetResponseProps } from "../../types/Timesheet.types";
 import change_event, { ChangeEventNext } from "./index";
 
 describe("mongodb change event", () => {
@@ -13,11 +13,11 @@ describe("mongodb change event", () => {
     documentKey: "123",
     fullDocument: {
       random_path: "456",
-    } as TimesheetServer,
+    } as TimesheetResponseProps,
     updateDescription: {
       updatedFields: {
         user_signature: "Hello",
-      } as TimesheetServer,
+      } as TimesheetResponseProps,
     },
   };
 
