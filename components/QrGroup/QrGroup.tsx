@@ -3,7 +3,7 @@ import React from "react";
 import CanvasDraw from "react-canvas-draw";
 import useSystemTheme from "react-use-system-theme";
 
-import { QrCode } from "../../pages/[timesheet]";
+import { QrCode } from "../../types/Timesheet.types";
 import palette from "../../utils/palette";
 import Cell from "../Cell/Cell";
 import styles from "./QrGroup.styles";
@@ -24,6 +24,11 @@ interface Line {
   points: { x: number; y: number }[];
   brushColor: string;
   brushRadius: string;
+}
+
+export enum SystemTheme {
+  LIGHT = "light",
+  DARK = "dark",
 }
 
 const modifyBrushColor = (signature: string, color: string): Signature => {
@@ -47,9 +52,10 @@ const modifySignature = (signature: string, color: palette) => {
   return JSON.stringify(modifyBrushColor(signature, color));
 };
 
+// eslint-disable-next-line react/display-name
 const QrGroup: React.FC<QrGroupProps> = React.memo(
   ({ cellTitle, signature, qrCode }) => {
-    const systemTheme = useSystemTheme("dark");
+    const systemTheme: SystemTheme = useSystemTheme(SystemTheme.DARK);
     const renderCanvasRef = React.useRef<CanvasDraw>(null);
     const printCanvasRef = React.useRef<CanvasDraw>(null);
     const signatureJson = JSON.parse(signature);
@@ -113,7 +119,7 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
             <Image
               className="qr_code"
               src={`data:image/svg+xml;utf8,${encodeURIComponent(
-                qrCode[systemTheme as "light" | "dark"]
+                qrCode[systemTheme] as string
               )}`}
               width={230}
               height={230}
@@ -125,7 +131,5 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
     );
   }
 );
-
-QrGroup.displayName = "QrGroup";
 
 export default QrGroup;

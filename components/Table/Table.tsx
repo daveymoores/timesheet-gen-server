@@ -13,7 +13,7 @@ const Table: React.FC<TableProps> = ({ timesheet, total_hours }) => {
       <div className="timesheet__table">
         <div className="timesheet__table--wrapper">
           <Cell text={`Days:`} title />
-          <TableContainer timesheet_log={timesheet} />
+          <TableContainer timesheet={timesheet} />
           <Cell text={`Total hours worked: ${total_hours}`} title />
         </div>
       </div>

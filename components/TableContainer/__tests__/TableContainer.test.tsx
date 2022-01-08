@@ -8,7 +8,7 @@ describe("TableContainer", () => {
     const tree = renderer
       .create(
         <TableContainer
-          timesheet_log={[{ user_edited: false, hours: 0, weekend: false }]}
+          timesheet={[{ user_edited: false, hours: 0, weekend: false }]}
         />
       )
       .toJSON();
