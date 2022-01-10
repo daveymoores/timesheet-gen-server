@@ -33,16 +33,6 @@ COPY --from=builder /app/server ./server
 COPY --from=builder /app/tsconfig.server.json ./
 COPY --from=builder /app/tsconfig.json ./
 
-ARG MONGODB_URI
-ARG MONGODB_DB
-ARG MONGODB_COLLECTION
-ARG SITE_URL
-
-ENV MONGODB_URI=$MONGODB_URI
-ENV MONGODB_DB=$MONGODB_DB
-ENV MONGODB_COLLECTION=$MONGODB_COLLECTION
-ENV SITE_URL=$SITE_URL
-
 USER nextjs
 
 EXPOSE 3000
