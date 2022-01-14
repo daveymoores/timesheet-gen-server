@@ -1,10 +1,10 @@
 import React from "react";
 
-import { ParsedTimesheetDayLog } from "../../pages/[timesheet]";
+import { TimesheetDayLog } from "../../types/Timesheet.types";
 import styles from "./TableCell.styles";
 
 interface TableCellProps
-  extends Partial<Pick<ParsedTimesheetDayLog, "weekend" | "hours">> {
+  extends Partial<Pick<TimesheetDayLog, "weekend" | "hours">> {
   day?: boolean;
   day_index?: number;
 }

@@ -1,4 +1,4 @@
-name: 'Production checks & deployment'
+name: 'Production checks'
 on:
   push:
     branches:
@@ -44,30 +44,3 @@ jobs:
         uses: codecov/codecov-action@v2.0.1
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-          
-          
-  deploy:
-    runs-on: self-hosted
-    
-    strategy:
-      matrix:
-        node-version: [ 14.x ]
-        
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Build Docker image
-        run: docker build . -t timesheet-gen-server:0.1 --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }} --build-arg MONGODB_DB=${{ secrets.MONGODB_DB }} --build-arg MONGODB_COLLECTION=${{ secrets.MONGODB_COLLECTION }} --build-arg SITE_URL=${{ secrets.SITE_URL }}
-
-      - name: Stop running Docker containers
-        run: docker kill $(docker ps -q)
-
-      - name: Remove all Docker containers
-        run: docker rm $(docker ps -a -q)
-
-      - name: Run Docker image
-        run: docker run -d -p 3000:3000 timesheet-gen-server:0.1
-
-      - name: Remove untagged Images
-        run: docker rmi $(docker images | grep "none" | awk '{print $3}')

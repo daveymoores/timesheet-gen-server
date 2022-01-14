@@ -1,31 +1,27 @@
 import React, { ForwardedRef, LegacyRef, ReactInstance } from "react";
 
-import { ParsedTimesheetDayLog, TimesheetProps } from "../../pages/[timesheet]";
+import { TimesheetProps } from "../../types/Timesheet.types";
 import Cell from "../Cell/Cell";
 import Qr from "../Qr/Qr";
 import Table from "../Table/Table";
 
+interface Props extends Omit<TimesheetProps, "timesheet"> {
+  days: number;
+}
+
 // eslint-disable-next-line react/display-name
-const Timesheet = React.forwardRef<
-  ReactInstance,
-  Omit<TimesheetProps<ParsedTimesheetDayLog>, "timesheet">
->(
+const Timesheet = React.forwardRef<ReactInstance, Props>(
   (
     {
-      name,
-      email,
-      namespace,
-      project_number,
-      client_name,
-      client_contact_person,
-      address,
-      timesheet_log,
+      timesheets,
+      client,
+      user,
       month_year,
-      total_hours,
       user_sign_qr_code,
       approver_sign_qr_code,
       user_signature,
       approver_signature,
+      days,
     },
     ref: ForwardedRef<ReactInstance>
   ) => {
@@ -41,27 +37,42 @@ const Timesheet = React.forwardRef<
         <div className="timesheet--row">
           <div className="timesheet__cell-group">
             <Cell text="Client:" title />
-            <Cell text={client_name} />
-            <Cell text={client_contact_person} />
-            <Cell text={address} />
+            <Cell text={client.client_name} />
+            <Cell text={client.client_contact_person} />
+            <Cell text={client.client_address} />
           </div>
 
           <div className="timesheet__cell-group">
             <Cell text="Contractor:" title />
-            <Cell text={name} />
-            <Cell text={email} />
+            <Cell text={user.name} />
+            <Cell text={user.email} />
           </div>
         </div>
 
-        <div className="timesheet--row">
-          <div className="timesheet__cell-group">
-            <Cell text={`Project: ${namespace}`} title />
-            <Cell text={`Project number: ${project_number}`} title />
-          </div>
-        </div>
-
-        <Table timesheet_log={timesheet_log} total_hours={total_hours} />
-
+        {timesheets.map((timesheet, index) => (
+          <React.Fragment key={index}>
+            <div className="timesheet--row">
+              <div className="timesheet__cell-group">
+                <Cell text={`Project: ${timesheet.namespace}`} title />
+                <Cell
+                  text={`Project number: ${timesheet.project_number}`}
+                  title
+                />
+              </div>
+            </div>
+            <Table
+              timesheet={timesheet.timesheet}
+              total_hours={timesheet.total_hours}
+            />
+          </React.Fragment>
+        ))}
+        <style jsx>
+          {`
+            :global(.timesheet--wrapper .timesheet__table--row) {
+              grid-template-columns: repeat(${days}, var(--cellHeight));
+            }
+          `}
+        </style>
         <Qr
           user_sign_qr_code={user_sign_qr_code}
           approver_sign_qr_code={approver_sign_qr_code}
@@ -94,10 +105,6 @@ const Timesheet = React.forwardRef<
             }
 
             :global(.timesheet--wrapper .timesheet__table--row) {
-              grid-template-columns: repeat(
-                ${timesheet_log.length},
-                var(--cellHeight)
-              );
               grid-template-rows: repeat(1, var(--cellHeight));
               grid-gap: var(--lineWidth);
             }

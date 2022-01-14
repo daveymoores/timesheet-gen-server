@@ -1,23 +1,25 @@
 import React from "react";
 
-import { ParsedTimesheetDayLog, TimesheetProps } from "../../pages/[timesheet]";
+import { TimesheetDayLog } from "../../types/Timesheet.types";
 import TableCell from "../TableCell/TableCell";
 import styles from "./TableContainer.styles";
 
-type TableRow = Pick<TimesheetProps<ParsedTimesheetDayLog>, "timesheet_log">;
+interface TableRow {
+  timesheet: TimesheetDayLog[];
+}
 
-const TableContainer: React.FC<TableRow> = ({ timesheet_log }) => {
+const TableContainer: React.FC<TableRow> = ({ timesheet }) => {
   return (
     <>
       <div className="timesheet__table--container">
         <div className="timesheet__table--scrollable-wrapper">
           <div className="timesheet__table--row">
-            {timesheet_log.map((day_value, index: number) => (
+            {timesheet.map((day_value, index: number) => (
               <TableCell day_index={index + 1} day key={index} />
             ))}
           </div>
           <div className="timesheet__table--row">
-            {timesheet_log.map((day: ParsedTimesheetDayLog, index: number) => (
+            {timesheet.map((day, index: number) => (
               <TableCell {...day} key={index} />
             ))}
           </div>
@@ -27,7 +29,7 @@ const TableContainer: React.FC<TableRow> = ({ timesheet_log }) => {
         {`
           .timesheet__table--row {
             grid-template-columns: repeat(
-              ${timesheet_log.length},
+              ${timesheet.length},
               var(--cellHeight)
             );
           }

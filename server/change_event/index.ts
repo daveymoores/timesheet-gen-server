@@ -1,11 +1,11 @@
 import * as socketIo from "socket.io";
 
-import { TimesheetServer } from "../../pages/[timesheet]";
+import { TimesheetResponseProps } from "../../types/Timesheet.types";
 
 export interface ChangeEventNext {
   documentKey: string | null;
-  fullDocument: TimesheetServer | null;
-  updateDescription: { updatedFields: TimesheetServer };
+  fullDocument: TimesheetResponseProps | null;
+  updateDescription: { updatedFields: TimesheetResponseProps };
 }
 
 const change_event = (io: socketIo.Server) => (next: ChangeEventNext) => {

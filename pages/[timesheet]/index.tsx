@@ -1,4 +1,4 @@
-import { Document, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import { GetServerSideProps } from "next";
 import QRCode from "qrcode";
 import { ParsedUrlQuery } from "querystring";
@@ -8,59 +8,27 @@ import ReactToPrint from "react-to-print";
 import Button from "../../components/Button/Button";
 import Timesheet from "../../components/Timesheet/Timesheet";
 import SocketIoContext from "../../context/SocketIoContext";
+import {
+  TimesheetProps,
+  TimesheetResponseProps,
+} from "../../types/Timesheet.types";
 import connect_to_db from "../../utils/connect_to_db";
+import getDays from "../../utils/get_days";
 import get_env_vars, { ENV_VARS } from "../../utils/get_env_vars";
 import palette from "../../utils/palette";
 
-export interface QrCode {
-  light: string;
-  dark: string;
-}
-
-export interface TimesheetDayLog {
-  hours: number;
-  user_edited: 0 | 1;
-  weekend: 0 | 1;
-}
-
-export interface ParsedTimesheetDayLog
-  extends Omit<TimesheetDayLog, "user_edited" | "weekend"> {
-  user_edited: boolean;
-  weekend: boolean;
-}
-
-export interface TimesheetProps<T> {
-  timesheet: string;
-  name: string;
-  email: string;
-  namespace: string;
-  project_number: string;
-  client_name: string;
-  client_contact_person: string;
-  address: string;
-  timesheet_log: T[];
-  total_hours: number;
-  month_year: string;
-  user_sign_qr_code: QrCode;
-  approver_sign_qr_code: QrCode;
-  user_signature: string;
-  approver_signature: string;
-}
-
-export interface TimesheetServer extends TimesheetProps<TimesheetDayLog> {
-  random_path: string;
-}
-
-const Index: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> = ({
-  params: { timesheet, timesheet_log, ...props },
+const Index: React.FC<{ params: TimesheetProps }> = ({
+  params: { timesheets, path, ...props },
 }) => {
   const componentRef = React.useRef<ReactInstance>(null);
   const { socket } = React.useContext(SocketIoContext);
 
+  const days = getDays(props.month_year);
+
   React.useEffect(() => {
     socket.on("connect", () => {
       console.log("Socket.io client connected");
-      socket.emit("join", timesheet);
+      socket.emit("join", path);
     });
   }, []);
 
@@ -74,14 +42,15 @@ const Index: React.FC<{ params: TimesheetProps<ParsedTimesheetDayLog> }> = ({
         <Timesheet
           ref={componentRef}
           {...props}
-          timesheet_log={timesheet_log}
+          path={path}
+          timesheets={timesheets}
+          days={days}
         />
       </article>
       <style jsx>{`
         .timesheet {
           max-width: calc(
-            ${timesheet_log.length} * var(--cellHeight) +
-              ${timesheet_log.length} * var(--lineWidth)
+            ${days} * var(--cellHeight) + ${days} * var(--lineWidth)
           );
           margin: auto;
         }
@@ -96,6 +65,10 @@ interface TimesheetGenServerResponse<T> {
   };
 }
 
+interface NotFound {
+  notFound: boolean;
+}
+
 interface Context extends ParsedUrlQuery {
   timesheet: string;
 }
@@ -103,9 +76,11 @@ interface Context extends ParsedUrlQuery {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export const getServerSideProps: GetServerSideProps<
-  TimesheetGenServerResponse<TimesheetServer>,
+  TimesheetGenServerResponse<TimesheetResponseProps>,
   Context
-> = async (context) => {
+> = async (
+  context
+): Promise<TimesheetGenServerResponse<TimesheetProps> | NotFound> => {
   const generateQR = async (text: string, light: string, dark: string) => {
     try {
       return await QRCode.toString(text, {
@@ -124,7 +99,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const run = async (
     random_path: string | undefined
-  ): Promise<Document | null> => {
+  ): Promise<TimesheetResponseProps | null> => {
     try {
       const { mongoCollection } = await connect_to_db(env_vars);
       const query = { random_path };
@@ -142,29 +117,28 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
-  const id = new ObjectId(data._id).toString();
+  const {
+    timesheets,
+    client,
+    random_path: path,
+    month_year,
+    user,
+    _id,
+    user_signature,
+    approver_signature,
+  } = data;
+
+  const id = new ObjectId(_id).toString();
 
   return {
     props: {
       params: {
         id,
-        timesheet: data.random_path,
-        name: data.name,
-        email: data.email,
-        namespace: data.namespace,
-        client_name: data.client_name,
-        client_contact_person: data.client_contact_person,
-        address: data.address,
-        timesheet_log: JSON.parse(data.timesheet).map(
-          (day: TimesheetDayLog): ParsedTimesheetDayLog => ({
-            ...day,
-            user_edited: !!day.user_edited,
-            weekend: !!day.weekend,
-          })
-        ),
-        total_hours: data.total_hours,
-        month_year: data.month_year,
-        project_number: 4567,
+        path,
+        timesheets,
+        client,
+        user,
+        month_year,
         user_sign_qr_code: {
           light: await generateQR(
             `${env_vars.SITE_URL}/${data.random_path}/sign?id=${id}&by=user`,
@@ -189,8 +163,8 @@ export const getServerSideProps: GetServerSideProps<
             palette.LIGHT_GREEN
           ),
         },
-        user_signature: data.user_signature || null,
-        approver_signature: data.approver_signature || null,
+        user_signature: user_signature || null,
+        approver_signature: approver_signature || null,
       },
     },
   };
