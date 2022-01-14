@@ -77,6 +77,11 @@ nextApp.prepare().then(async () => {
   app.get("*", (req, res) => handle(req, res));
 
   server.listen(3000, () => {
-    console.log("Ready on ", process.env.SITE_URL);
+    console.log(
+      "Ready on ",
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : process.env.SITE_URL
+    );
   });
 });
