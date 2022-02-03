@@ -1,39 +1,26 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-import useSystemTheme from "react-use-system-theme";
-
-import NewsletterSubscribe from "../NewsletterSubscribe/NewsletterSubscribe";
-import styles from "./Footer.styles";
 
 const Footer: React.FC = () => {
-  const systemTheme = useSystemTheme("dark");
-
-  const githubImageSrc =
-    systemTheme === "dark"
-      ? "GitHub-Mark-Light-64px.svg"
-      : "GitHub-Mark-Dark-64px.svg";
   return (
-    <>
-      <footer>
-        <NewsletterSubscribe />
-        <div className="bottom-bar">
-          <ul>
-            <li className="t-gen--cell">
-              <a href="">View on Github</a>
-            </li>
-            <li className="t-gen--cell">
-              <Image
-                height={25}
-                width={25}
-                src={`/${githubImageSrc}`}
-                alt="GitHub icon"
-              />
-            </li>
-          </ul>
+    <footer className="bg-black mt-24">
+      <nav className="container font-semibold flex justify-center flex-col align-middle items-center gap-2 py-16">
+        <Link href="/documentation">Github</Link>
+        <Link href="/documentation">Linkedin</Link>
+        <div className="mt-24">
+          <Link href="/" passHref>
+            <Image
+              src="/logo.svg"
+              width={114}
+              height={15}
+              priority={true}
+              layout="fixed"
+            />
+          </Link>
         </div>
-      </footer>
-      <style jsx>{styles}</style>
-    </>
+      </nav>
+    </footer>
   );
 };
 

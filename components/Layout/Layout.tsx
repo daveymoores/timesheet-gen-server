@@ -1,11 +1,14 @@
 import React from "react";
 
+import Footer from "../Footer/Footer";
+import Navigation from "../Navigation/Navigation";
+
 const Layout: React.FC = (props) => {
   return (
     <div className="page-layout">
-      {/*<Navigation />*/}
+      <Navigation />
       <main>{props.children}</main>
-      {/*<Footer />*/}
+      <Footer />
     </div>
   );
 };
