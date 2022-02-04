@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import React from "react";
 
+import Button from "../components/Button/Button";
 import CodeLine from "../components/Code/CodeLine/CodeLine";
 
 const Home: NextPage = () => {
@@ -51,9 +52,7 @@ const Home: NextPage = () => {
               </span>{" "}
               from your git log
             </h1>
-            <button className="py-2 px-4 bg-gradient-to-tl from-indigo-500 to-indigo-700 text-white text-md rounded-md shadow focus:outline-none">
-              See sample timesheet
-            </button>
+            <Button text="See sample timesheet" />
           </div>
 
           <div className="col-start-4 col-span-6 mt-32">
@@ -88,9 +87,7 @@ const Home: NextPage = () => {
               </p>
             </div>
 
-            <button className="py-2 px-4 bg-gradient-to-tl from-indigo-500 to-indigo-700 text-white text-md rounded-md shadow focus:outline-none">
-              See the docs
-            </button>
+            <Button text="See the docs" />
           </div>
         </div>
       </div>

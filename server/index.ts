@@ -1,15 +1,12 @@
 import bodyParser from "body-parser";
 import express, { Express } from "express";
 import * as http from "http";
-import { ObjectId } from "mongodb";
 import next from "next";
 import * as socketIo from "socket.io";
 
 import { SignProps } from "../pages/[timesheet]/sign";
 import connect_to_db from "../utils/connect_to_db";
 import get_env_vars, { ENV_VARS } from "../utils/get_env_vars";
-import change_event from "./change_event";
-import { options, pipeline } from "./pipeline";
 import ws from "./ws";
 
 const dev = process.env.NODE_ENV !== "production";
@@ -30,18 +27,18 @@ nextApp.prepare().then(async () => {
   // watch only accepts Document[] for some reason
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const changeStream = mongoCollection.watch(pipeline, options);
-  // curry the io client into the change event function
-  const updateOnChange = change_event(io);
-  // this will fire for every update to the db
-  changeStream.on("change", updateOnChange);
+  // const changeStream = mongoCollection.watch(pipeline, options);
+  // // curry the io client into the change event function
+  // const updateOnChange = change_event(io);
+  // // this will fire for every update to the db
+  // changeStream.on("change", updateOnChange);
 
   app.use(bodyParser.json());
 
   app.post("/api/signature", async (req, res) => {
     const run = async ({ id, by, signature_string }: RequestBody) => {
       try {
-        const query = { _id: new ObjectId(id) };
+        const query = { _id: id };
         await mongoCollection.findOneAndUpdate(
           query,
           {

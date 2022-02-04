@@ -6,8 +6,8 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-black mt-24">
       <nav className="container font-semibold flex justify-center flex-col align-middle items-center gap-2 py-16">
-        <Link href="/documentation">Github</Link>
-        <Link href="/documentation">Linkedin</Link>
+        <Link href="https://github.com/daveymoores/autolog">Github</Link>
+        <Link href="https://www.linkedin.com/in/daveymoores">Linkedin</Link>
         <div className="mt-24">
           <Link href="/" passHref>
             <Image

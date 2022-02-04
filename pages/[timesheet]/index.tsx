@@ -33,29 +33,25 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
   }, []);
 
   return (
-    <React.Fragment>
-      <article className="timesheet">
-        <ReactToPrint
-          trigger={() => <Button text="Print" />}
-          content={() => componentRef.current}
-        />
-        <Timesheet
-          ref={componentRef}
-          {...props}
-          path={path}
-          timesheets={timesheets}
-          days={days}
-        />
-      </article>
-      <style jsx>{`
-        .timesheet {
-          max-width: calc(
-            ${days} * var(--cellHeight) + ${days} * var(--lineWidth)
-          );
-          margin: auto;
+    <article className="container mt-10">
+      <Timesheet
+        printButton={
+          <ReactToPrint
+            trigger={() => (
+              <div className="align-top">
+                <Button text="Print timesheet" />
+              </div>
+            )}
+            content={() => componentRef.current}
+          />
         }
-      `}</style>
-    </React.Fragment>
+        ref={componentRef}
+        {...props}
+        path={path}
+        timesheets={timesheets}
+        days={days}
+      />
+    </article>
   );
 };
 

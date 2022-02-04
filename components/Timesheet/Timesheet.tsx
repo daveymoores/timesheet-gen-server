@@ -1,12 +1,12 @@
 import React, { ForwardedRef, LegacyRef, ReactInstance } from "react";
 
 import { TimesheetProps } from "../../types/Timesheet.types";
-import Cell from "../Cell/Cell";
 import Qr from "../Qr/Qr";
 import Table from "../Table/Table";
 
 interface Props extends Omit<TimesheetProps, "timesheet"> {
   days: number;
+  printButton: JSX.Element;
 }
 
 // eslint-disable-next-line react/display-name
@@ -21,130 +21,98 @@ const Timesheet = React.forwardRef<ReactInstance, Props>(
       approver_sign_qr_code,
       user_signature,
       approver_signature,
-      days,
+      printButton,
     },
     ref: ForwardedRef<ReactInstance>
   ) => {
     return (
-      <div
-        ref={ref as unknown as LegacyRef<HTMLDivElement> | undefined}
-        className="timesheet--wrapper"
-      >
-        <header>
-          <h1 className="timesheet--title">Timesheet: {month_year}</h1>
-        </header>
+      <div ref={ref as unknown as LegacyRef<HTMLDivElement> | undefined}>
+        <div className="grid grid-cols-12">
+          <div className="col-span-10 col-start-2">
+            <header className="mt-10 flex flex-row gap-3 justify-between">
+              <div>
+                <h2 className="font-semibold text-slate-500 text-lg">
+                  Timesheet
+                </h2>
+                <h1 className="font-bold text-green-100 text-5xl">
+                  {month_year}
+                </h1>
+              </div>
 
-        <div className="timesheet--row">
-          <div className="timesheet__cell-group">
-            <Cell text="Client:" title />
-            <Cell text={client.client_name} />
-            <Cell text={client.client_contact_person} />
-            <Cell text={client.client_address} />
-          </div>
+              {printButton}
+            </header>
 
-          <div className="timesheet__cell-group">
-            <Cell text="Contractor:" title />
-            <Cell text={user.name} />
-            <Cell text={user.email} />
+            <div className="mt-10 flex gap-20">
+              <div className="mt-10 flex flex-col gap-2">
+                <h3 className="font-semibold text-slate-500 text-lg mb-1">
+                  Client
+                </h3>
+                <p className="font-bold text-2xl mb-2">{client.client_name}</p>
+                <p className="font-semibold text-xl">
+                  {client.client_contact_person}
+                </p>
+                <p className="font-semibold text-lg flex flex-col">
+                  {client.client_address.split(/\n/).map((text, index) => (
+                    <span key={index}>{text}</span>
+                  ))}
+                </p>
+              </div>
+
+              <div className="mt-10 flex flex-col gap-2">
+                <h3 className="font-semibold text-slate-500 text-lg mb-1 ">
+                  Contractor
+                </h3>
+                <div className="flex flex-row gap-4">
+                  <div className="rounded-full bg-slate-500 h-10 w-10 m-1" />
+                  <div className="flex flex-col">
+                    <p className="font-bold text-2xl mb-2">{user.name}</p>
+                    <p className="font-semibold text-xl">{user.email}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {timesheets.map((timesheet, index) => (
           <React.Fragment key={index}>
-            <div className="timesheet--row">
-              <div className="timesheet__cell-group">
-                <Cell text={`Project: ${timesheet.namespace}`} title />
-                <Cell
-                  text={`Project number: ${timesheet.project_number}`}
-                  title
-                />
+            <div>
+              <div className="mt-16 flex flex-col gap-2">
+                <h3 className="font-semibold text-slate-500 text-lg">
+                  Project
+                </h3>
+                <p className="font-bold text-2xl mb-2">{timesheet.namespace}</p>
+                <p className="font-bold text-2xl mb-2">
+                  {timesheet.project_number}
+                </p>
               </div>
             </div>
             <Table
+              namespace={timesheet.namespace}
               timesheet={timesheet.timesheet}
               total_hours={timesheet.total_hours}
             />
           </React.Fragment>
         ))}
-        <style jsx>
-          {`
-            :global(.timesheet--wrapper .timesheet__table--row) {
-              grid-template-columns: repeat(${days}, var(--cellHeight));
-            }
-          `}
-        </style>
+        <div className="flex text-center w-full justify-center mt-16">
+          <h3 className="flex flex-col">
+            <span className="font-semibold text-slate-500 text-xl mb-1">
+              Total hours
+            </span>
+            <span className="text-green-100 font-bold text-6xl">
+              {timesheets.reduce(
+                (partialSum, { total_hours }) => partialSum + total_hours,
+                0
+              )}
+            </span>
+          </h3>
+        </div>
         <Qr
           user_sign_qr_code={user_sign_qr_code}
           approver_sign_qr_code={approver_sign_qr_code}
           user_signature={user_signature}
           approver_signature={approver_signature}
         />
-        <style jsx>{`
-          @media print {
-            .timesheet--wrapper {
-              --cellHeight: 21px;
-              --lineWidth: 2px;
-
-              padding: 30px;
-            }
-
-            .timesheet--wrapper .timesheet--title {
-              font-size: 30px;
-              margin: 0 0 40px;
-            }
-
-            :global(.timesheet--wrapper .timesheet__table--scrollable-wrapper) {
-              overflow-x: hidden;
-            }
-
-            :global(.timesheet--wrapper .timesheet__cell) {
-              margin-top: calc(-1 * var(--lineWidth));
-              padding: 0.42em 0.6em;
-              font-size: 14px;
-              border-width: var(--lineWidth);
-            }
-
-            :global(.timesheet--wrapper .timesheet__table--row) {
-              grid-template-rows: repeat(1, var(--cellHeight));
-              grid-gap: var(--lineWidth);
-            }
-
-            :global(.timesheet--wrapper .timesheet__table--cell) {
-              height: var(--cellHeight);
-              width: var(--cellHeight);
-              font-size: 14px;
-            }
-
-            :global(.timesheet--wrapper .qr) {
-              flex-direction: row;
-            }
-
-            :global(.timesheet--wrapper .render-canvas) {
-              display: none;
-            }
-
-            :global(.timesheet--wrapper .print-canvas) {
-              display: block;
-            }
-          }
-
-          .timesheet--row {
-            display: flex;
-            align-items: start;
-          }
-
-          .timesheet--title {
-            font-size: 52px;
-            margin: 80px 0 80px 0;
-          }
-
-          .timesheet__cell-group {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            margin: 0 60px 60px 0;
-          }
-        `}</style>
       </div>
     );
   }
