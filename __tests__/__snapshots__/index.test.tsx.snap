@@ -2,425 +2,265 @@
 
 exports[`Home renders homepage unchanged 1`] = `
 <article
-  className="jsx-520853164"
+  className="mx-auto lg:max-w-screen-xl"
 >
   <div
-    className="jsx-520853164 commands"
+    className="md:container md:mx-auto"
   >
-    <section
-      className="jsx-1811775179"
+    <div
+      className="grid grid-cols-12 mt-32"
     >
-      <header
-        className="jsx-1811775179"
+      <div
+        className="col-span-6 col-start-2"
       >
-        <h3
-          className="jsx-1811775179"
+        <code
+          className="p-14 rounded-md bg-black flex flex-col gap-8 drop-shadow-2xl"
         >
-          Initialise for current directory
-        </h3>
-        <button
-          className="jsx-1811775179"
-        >
-          <svg
-            className="jsx-1811775179"
-            height="29px"
-            version="1.1"
-            viewBox="0 0 29 29"
-            width="29px"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
+          <span
+            className="flex flex-col gap-y-2"
           >
-            <g
-              className="jsx-1811775179"
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
+            <span
+              className="text-slate-600 font-mono"
             >
-              <g
-                className="jsx-1811775179"
-                stroke="#e1f7de"
-                strokeWidth="3"
-                transform="translate(-448.000000, -11.000000)"
+              Install with homebrew (Mac OS)
+            </span>
+            <span
+              className="text-green-100 font-mono"
+            >
+              <span
+                className="text-green-300"
               >
-                <g
-                  className="jsx-1811775179"
-                  transform="translate(448.000000, 11.000000)"
-                >
-                  <rect
-                    className="jsx-1811775179"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="1.5"
-                    y="1.5"
-                  />
-                  <rect
-                    className="jsx-1811775179"
-                    fill="#2d3039"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="8.5"
-                    y="8.5"
-                  />
-                </g>
-              </g>
-            </g>
-          </svg>
-        </button>
-      </header>
-      <code
-        className="jsx-1811775179"
-      >
-        &gt; timesheet-gen edit -h 5 -d 8 -m 10 -y 2021
-      </code>
-    </section>
-    <section
-      className="jsx-1811775179"
-    >
-      <header
-        className="jsx-1811775179"
-      >
-        <h3
-          className="jsx-1811775179"
-        >
-          Initialise for current directory
-        </h3>
-        <button
-          className="jsx-1811775179"
-        >
-          <svg
-            className="jsx-1811775179"
-            height="29px"
-            version="1.1"
-            viewBox="0 0 29 29"
-            width="29px"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
+                $
+              </span>
+               brew install
+               
+              <span
+                className="text-rose-500"
+              >
+                autolog
+              </span>
+            </span>
+          </span>
+          <span
+            className="flex flex-col gap-y-2"
           >
-            <g
-              className="jsx-1811775179"
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
+            <span
+              className="text-slate-700 font-mono"
             >
-              <g
-                className="jsx-1811775179"
-                stroke="#e1f7de"
-                strokeWidth="3"
-                transform="translate(-448.000000, -11.000000)"
+              Initialise autolog for a repository
+            </span>
+            <span
+              className="text-slate-200 font-mono"
+            >
+              <span
+                className="text-green-300"
               >
-                <g
-                  className="jsx-1811775179"
-                  transform="translate(448.000000, 11.000000)"
-                >
-                  <rect
-                    className="jsx-1811775179"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="1.5"
-                    y="1.5"
-                  />
-                  <rect
-                    className="jsx-1811775179"
-                    fill="#2d3039"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="8.5"
-                    y="8.5"
-                  />
-                </g>
-              </g>
-            </g>
-          </svg>
-        </button>
-      </header>
-      <code
-        className="jsx-1811775179"
-      >
-        &gt; timesheet-gen edit -h 5 -d 8 -m 10 -y 2021
-      </code>
-    </section>
-    <section
-      className="jsx-1811775179"
-    >
-      <header
-        className="jsx-1811775179"
-      >
-        <h3
-          className="jsx-1811775179"
-        >
-          Initialise for current directory
-        </h3>
-        <button
-          className="jsx-1811775179"
-        >
-          <svg
-            className="jsx-1811775179"
-            height="29px"
-            version="1.1"
-            viewBox="0 0 29 29"
-            width="29px"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
+                $
+              </span>
+              <span
+                className="text-rose-500"
+              >
+                 
+                autolog
+              </span>
+              <span
+                className="text-rose-200"
+              >
+                 
+                init
+              </span>
+            </span>
+          </span>
+          <span
+            className="flex flex-col gap-y-2"
           >
-            <g
-              className="jsx-1811775179"
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
+            <span
+              className="text-slate-700 font-mono"
             >
-              <g
-                className="jsx-1811775179"
-                stroke="#e1f7de"
-                strokeWidth="3"
-                transform="translate(-448.000000, -11.000000)"
+              Generate a timesheet for January
+            </span>
+            <span
+              className="text-slate-200 font-mono"
+            >
+              <span
+                className="text-green-300"
               >
-                <g
-                  className="jsx-1811775179"
-                  transform="translate(448.000000, 11.000000)"
-                >
-                  <rect
-                    className="jsx-1811775179"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="1.5"
-                    y="1.5"
-                  />
-                  <rect
-                    className="jsx-1811775179"
-                    fill="#2d3039"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="8.5"
-                    y="8.5"
-                  />
-                </g>
-              </g>
-            </g>
-          </svg>
-        </button>
-      </header>
-      <code
-        className="jsx-1811775179"
-      >
-        &gt; timesheet-gen edit -h 5 -d 8 -m 10 -y 2021
-      </code>
-    </section>
-    <section
-      className="jsx-1811775179"
-    >
-      <header
-        className="jsx-1811775179"
-      >
-        <h3
-          className="jsx-1811775179"
-        >
-          Initialise for current directory
-        </h3>
-        <button
-          className="jsx-1811775179"
-        >
-          <svg
-            className="jsx-1811775179"
-            height="29px"
-            version="1.1"
-            viewBox="0 0 29 29"
-            width="29px"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
+                $
+              </span>
+              <span
+                className="text-rose-500"
+              >
+                 
+                autolog
+              </span>
+              <span
+                className="text-rose-200"
+              >
+                 
+                make
+              </span>
+              <span
+                className="text-green-100"
+              >
+                 
+                -m1
+              </span>
+            </span>
+          </span>
+          <span
+            className="flex flex-col gap-y-2"
           >
-            <g
-              className="jsx-1811775179"
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
+            <span
+              className="text-slate-700 font-mono"
             >
-              <g
-                className="jsx-1811775179"
-                stroke="#e1f7de"
-                strokeWidth="3"
-                transform="translate(-448.000000, -11.000000)"
+              Modify an entry
+            </span>
+            <span
+              className="text-slate-200 font-mono"
+            >
+              <span
+                className="text-green-300"
               >
-                <g
-                  className="jsx-1811775179"
-                  transform="translate(448.000000, 11.000000)"
-                >
-                  <rect
-                    className="jsx-1811775179"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="1.5"
-                    y="1.5"
-                  />
-                  <rect
-                    className="jsx-1811775179"
-                    fill="#2d3039"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="8.5"
-                    y="8.5"
-                  />
-                </g>
-              </g>
-            </g>
-          </svg>
-        </button>
-      </header>
-      <code
-        className="jsx-1811775179"
+                $
+              </span>
+              <span
+                className="text-rose-500"
+              >
+                 
+                autolog
+              </span>
+              <span
+                className="text-rose-200"
+              >
+                 
+                edit
+              </span>
+              <span
+                className="text-green-100"
+              >
+                 
+                -d22
+              </span>
+              <span
+                className="text-green-100"
+              >
+                 
+                -m11
+              </span>
+              <span
+                className="text-green-100"
+              >
+                 
+                -y2020
+              </span>
+              <span
+                className="text-green-100"
+              >
+                 
+                -h6
+              </span>
+            </span>
+          </span>
+        </code>
+      </div>
+      <div
+        className="col-span-3 col-end-12"
       >
-        &gt; timesheet-gen edit -h 5 -d 8 -m 10 -y 2021
-      </code>
-    </section>
-    <section
-      className="jsx-1811775179"
-    >
-      <header
-        className="jsx-1811775179"
-      >
-        <h3
-          className="jsx-1811775179"
+        <h1
+          className="text-3xl font-medium text-green-100 my-8"
         >
-          Initialise for current directory
-        </h3>
-        <button
-          className="jsx-1811775179"
-        >
-          <svg
-            className="jsx-1811775179"
-            height="29px"
-            version="1.1"
-            viewBox="0 0 29 29"
-            width="29px"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
+          A simple utility to
+           
+          <span
+            className="text-green-300 font-bold"
           >
-            <g
-              className="jsx-1811775179"
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
-            >
-              <g
-                className="jsx-1811775179"
-                stroke="#e1f7de"
-                strokeWidth="3"
-                transform="translate(-448.000000, -11.000000)"
-              >
-                <g
-                  className="jsx-1811775179"
-                  transform="translate(448.000000, 11.000000)"
-                >
-                  <rect
-                    className="jsx-1811775179"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="1.5"
-                    y="1.5"
-                  />
-                  <rect
-                    className="jsx-1811775179"
-                    fill="#2d3039"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="8.5"
-                    y="8.5"
-                  />
-                </g>
-              </g>
-            </g>
-          </svg>
-        </button>
-      </header>
-      <code
-        className="jsx-1811775179"
-      >
-        &gt; timesheet-gen edit -h 5 -d 8 -m 10 -y 2021
-      </code>
-    </section>
-    <section
-      className="jsx-1811775179"
-    >
-      <header
-        className="jsx-1811775179"
-      >
-        <h3
-          className="jsx-1811775179"
-        >
-          Initialise for current directory
-        </h3>
+            easily generate timesheets
+          </span>
+           
+          from your git log
+        </h1>
         <button
-          className="jsx-1811775179"
+          className="py-2 px-4 bg-gradient-to-tl from-indigo-500 to-indigo-700 text-white text-md rounded-md shadow focus:outline-none"
         >
-          <svg
-            className="jsx-1811775179"
-            height="29px"
-            version="1.1"
-            viewBox="0 0 29 29"
-            width="29px"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-          >
-            <g
-              className="jsx-1811775179"
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
-            >
-              <g
-                className="jsx-1811775179"
-                stroke="#e1f7de"
-                strokeWidth="3"
-                transform="translate(-448.000000, -11.000000)"
-              >
-                <g
-                  className="jsx-1811775179"
-                  transform="translate(448.000000, 11.000000)"
-                >
-                  <rect
-                    className="jsx-1811775179"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="1.5"
-                    y="1.5"
-                  />
-                  <rect
-                    className="jsx-1811775179"
-                    fill="#2d3039"
-                    height="19"
-                    rx="2"
-                    width="19"
-                    x="8.5"
-                    y="8.5"
-                  />
-                </g>
-              </g>
-            </g>
-          </svg>
+          See sample timesheet
         </button>
-      </header>
-      <code
-        className="jsx-1811775179"
+      </div>
+      <div
+        className="col-start-4 col-span-6 mt-32"
       >
-        &gt; timesheet-gen edit -h 5 -d 8 -m 10 -y 2021
-      </code>
-    </section>
+        <h2
+          className="text-3xl font-semibold text-green-100"
+        >
+          For 
+          <span
+            className="text-green-300 font-bold"
+          >
+            freelance
+          </span>
+           
+          engineers
+        </h2>
+        <p
+          className="text-green-100 mt-4"
+        >
+          Initialise autolog against all your clients repositories.
+           
+          <a
+            href=""
+          >
+            Commit granularly
+          </a>
+           and automatically generate a timesheet at the end of the working month.
+        </p>
+      </div>
+      <div
+        className="col-start-5 col-end-9 flex flex-col items-center"
+      >
+        <div
+          className="mt-20 mb-20 p-10 rounded-md bg-green-100 text-slate-800 flex flex-col gap-6 drop-shadow-2xl"
+        >
+          <h3
+            className="text-3xl font-bold text-center"
+          >
+            Free.
+          </h3>
+          <p>
+            Generate timesheets and have them 
+            <b>
+              signed for approval.
+            </b>
+          </p>
+          <p>
+            Split your time between 
+            <b>
+              multiple repositories
+            </b>
+             
+            automatically
+          </p>
+          <p>
+            Choose to store all your data 
+            <b>
+              locally
+            </b>
+             (no sign-up required)
+          </p>
+          <p>
+            Sign up to store your timesheets in the cloud and
+             
+            <b>
+              enable edits
+            </b>
+             in your web browser
+          </p>
+        </div>
+        <button
+          className="py-2 px-4 bg-gradient-to-tl from-indigo-500 to-indigo-700 text-white text-md rounded-md shadow focus:outline-none"
+        >
+          See the docs
+        </button>
+      </div>
+    </div>
   </div>
 </article>
 `;
