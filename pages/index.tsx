@@ -8,9 +8,9 @@ const Home: NextPage = () => {
   return (
     <article className="mx-auto lg:max-w-screen-xl">
       <div className="container mx-auto">
-        <div className="grid grid-cols-12 mt-32">
+        <div className="grid grid-cols-12 mt-24 lg:mt-32">
           <div className="col-span-12 lg:col-span-6 lg:col-start-2 order-2 lg:order-none">
-            <code className="p-14 rounded-md bg-black flex flex-col gap-8 drop-shadow-2xl">
+            <code className="p-10 sm:p-14 rounded-md bg-black flex flex-col gap-6 sm:gap-8 drop-shadow-2xl">
               <span className="flex flex-col gap-y-2">
                 <span className="text-slate-600 font-mono">
                   Install with homebrew (Mac OS)
@@ -44,8 +44,8 @@ const Home: NextPage = () => {
             </code>
           </div>
 
-          <div className="col-span-10 col-start-2 lg:col-span-3 lg:col-end-12 order-1 lg:order-none">
-            <h1 className="text-3xl font-medium text-green-100 lg:my-8">
+          <div className="mb-10 lg:mb-0 col-span-10 col-start-2 lg:col-span-3 lg:col-end-12 order-1 lg:order-none">
+            <h1 className="mb-6 text-3xl font-medium text-green-100 lg:my-8">
               A simple utility to{" "}
               <span className="text-green-300 font-bold">
                 easily generate timesheets
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
             <Button text="See sample timesheet" />
           </div>
 
-          <div className="col-span-10 col-start-2 lg:col-start-4 lg:col-span-6 mt-32 order-3 lg:order-none">
+          <div className="col-span-10 col-start-2 lg:col-start-4 lg:col-span-6 mt-12 lg:mt-32 order-3 lg:order-none">
             <h2 className="text-3xl font-semibold text-green-100">
               For <span className="text-green-300 font-bold">freelance</span>{" "}
               engineers
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className="col-span-10 col-start-2 md:col-start-3 md:col-end-10 lg:col-start-4 lg:col-end-10 xl:col-start-5 xl:col-end-9 flex flex-col items-center order-4 lg:order-none">
-            <div className="max-w-[370px] mt-20 mb-20 p-10 rounded-md bg-green-100 text-slate-800 flex flex-col gap-6 drop-shadow-2xl">
+            <div className="max-w-[370px] mt-10 lg:mt-20 mb-10 lg:mb-20 p-10 rounded-md bg-green-100 text-slate-800 flex flex-col gap-6 drop-shadow-2xl">
               <h3 className="text-3xl font-bold text-center">Free.</h3>
               <p>
                 Generate timesheets and have them <b>signed for approval.</b>

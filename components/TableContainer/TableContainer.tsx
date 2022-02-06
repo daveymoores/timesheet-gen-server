@@ -30,8 +30,8 @@ const TableContainer: React.FC<TableRow> = ({ timesheet }) => {
     <div className="relative">
       <div
         className="lg:w-full overflow-scroll lg:overflow-auto bg-slate-900 py-4 lg:bg-transparent lg:py-0
-    lg:after:hidden after:bg-gradient-to-r after:from-slate-900 after:to-transparent after:bg-transparent after:content-[''] after:absolute after:h-full after:w-4 sm:after:w-8 after:top-0
-    lg:before:hidden before:bg-gradient-to-l before:from-slate-900 before:to-transparent before:bg-transparent before:content-[''] before:absolute before:h-full before:w-4 sm:before:w-8 before:top-0 before:right-0"
+    lg:after:hidden after:bg-gradient-to-r after:from-slate-900 after:to-transparent after:bg-transparent after:content-[''] after:absolute after:h-full after:w-6 sm:after:w-8 after:top-0
+    lg:before:hidden before:bg-gradient-to-l before:from-slate-900 before:to-transparent before:bg-transparent before:content-[''] before:absolute before:h-full before:w-6 sm:before:w-8 before:top-0 before:right-0"
       >
         <div className="w-[1200px] container max-w-none lg:w-full lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
           <div className={gridClass("align-middle p-1 grid")}>
