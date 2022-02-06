@@ -33,25 +33,23 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
   }, []);
 
   return (
-    <article className="container mt-10">
-      <Timesheet
-        printButton={
-          <ReactToPrint
-            trigger={() => (
-              <div className="align-top">
-                <Button text="Print timesheet" />
-              </div>
-            )}
-            content={() => componentRef.current}
-          />
-        }
-        ref={componentRef}
-        {...props}
-        path={path}
-        timesheets={timesheets}
-        days={days}
-      />
-    </article>
+    <Timesheet
+      printButton={
+        <ReactToPrint
+          trigger={() => (
+            <div className="self-center align-top hidden md:block">
+              <Button text="Print timesheet" />
+            </div>
+          )}
+          content={() => componentRef.current}
+        />
+      }
+      ref={componentRef}
+      {...props}
+      path={path}
+      timesheets={timesheets}
+      days={days}
+    />
   );
 };
 

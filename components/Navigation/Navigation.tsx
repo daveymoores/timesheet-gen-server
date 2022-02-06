@@ -4,8 +4,8 @@ import React from "react";
 
 const Navigation: React.FC = () => {
   return (
-    <div className="grid grid-cols-12 mt-16 mx-auto lg:max-w-screen-xl font-semibold">
-      <div className="col-span-8 col-start-3">
+    <div className="container grid grid-cols-12 mt-8 lg:mt-16 mx-auto lg:max-w-screen-xl font-semibold">
+      <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-8 lg:col-start-3">
         <nav className="flex justify-between align-middle">
           <Link href="/" passHref>
             <Image
