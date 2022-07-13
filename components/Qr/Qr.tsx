@@ -26,25 +26,27 @@ const Qr: React.FC<QrProps> = ({
   });
 
   React.useEffect(() => {
+    if (!socket) return;
     socket.on("signature_update", (data) => {
+      console.log(data);
       setSignature((signature) => ({
         ...signature,
         [data.signee]: data.signature,
       }));
     });
-  }, []);
+  }, [socket]);
 
   return (
     <>
       <div className="qr">
-        {signature["user_signature"] && (
+        {user_sign_qr_code && (
           <QrGroup
             cellTitle="Signee: Davey Moores"
             signature={signature["user_signature"]}
             qrCode={user_sign_qr_code}
           />
         )}
-        {signature["approver_signature"] && (
+        {approver_sign_qr_code && (
           <QrGroup
             cellTitle="Approver: Jim Spencer Brown"
             signature={signature["approver_signature"]}

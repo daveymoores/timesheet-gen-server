@@ -37,9 +37,13 @@ const TableContainer: React.FC<TableRow> = ({ timesheet }) => {
           <div className={gridClass("align-middle p-1 grid")}>
             {timesheet.map(({ hours }, index: number) => {
               return (
-                <>
-                  {hours ? <HourInput hours={hours} index={index} /> : <div />}
-                </>
+                <React.Fragment key={index}>
+                  {hours ? (
+                    <HourInput hours={hours} index={index} key={index} />
+                  ) : (
+                    <div key={index} />
+                  )}
+                </React.Fragment>
               );
             })}
           </div>
@@ -60,9 +64,13 @@ const TableContainer: React.FC<TableRow> = ({ timesheet }) => {
           <div className={gridClass("align-middle p-1 grid")}>
             {timesheet.map(({ hours }, index: number) => {
               return (
-                <>
-                  {hours ? <HourSymbol hours={hours} index={index} /> : <div />}
-                </>
+                <React.Fragment key={index}>
+                  {hours ? (
+                    <HourSymbol key={index} hours={hours} index={index} />
+                  ) : (
+                    <div key={index} />
+                  )}
+                </React.Fragment>
               );
             })}
           </div>

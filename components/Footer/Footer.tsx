@@ -10,13 +10,15 @@ const Footer: React.FC = () => {
         <Link href="https://www.linkedin.com/in/daveymoores">Linkedin</Link>
         <div className="mt-24">
           <Link href="/" passHref>
-            <Image
-              src="/logo.svg"
-              width={114}
-              height={15}
-              priority={true}
-              layout="fixed"
-            />
+            <a>
+              <Image
+                src="/logo.svg"
+                width={114}
+                height={15}
+                priority={true}
+                layout="fixed"
+              />
+            </a>
           </Link>
         </div>
       </nav>

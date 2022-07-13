@@ -9,7 +9,7 @@ import styles from "./QrGroup.styles";
 
 interface QrGroupProps {
   cellTitle: string;
-  signature: string;
+  signature: string | null;
   qrCode: QrCode;
 }
 
@@ -57,7 +57,7 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
     const systemTheme: SystemTheme = useSystemTheme(SystemTheme.DARK);
     const renderCanvasRef = React.useRef<CanvasDraw>(null);
     const printCanvasRef = React.useRef<CanvasDraw>(null);
-    const signatureJson = JSON.parse(signature);
+    const signatureJson = signature && JSON.parse(signature);
 
     React.useEffect(() => {
       if (renderCanvasRef.current && printCanvasRef.current && signature) {

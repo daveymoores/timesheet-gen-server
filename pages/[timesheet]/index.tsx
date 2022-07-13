@@ -26,11 +26,12 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
   const days = getDays(props.month_year);
 
   React.useEffect(() => {
+    if (!socket) return;
     socket.on("connect", () => {
       console.log("Socket.io client connected");
-      socket.emit("join", path);
+      socket.emit("JoinRoom", path);
     });
-  }, []);
+  }, [socket]);
 
   return (
     <Timesheet

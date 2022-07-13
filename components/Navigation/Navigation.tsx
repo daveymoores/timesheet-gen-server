@@ -8,13 +8,15 @@ const Navigation: React.FC = () => {
       <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-8 lg:col-start-3">
         <nav className="flex justify-between align-middle">
           <Link href="/" passHref>
-            <Image
-              src="/logo.svg"
-              width={114}
-              height={15}
-              priority={true}
-              layout="fixed"
-            />
+            <a>
+              <Image
+                src="/logo.svg"
+                width={114}
+                height={15}
+                priority={true}
+                layout="fixed"
+              />
+            </a>
           </Link>
           <Link href="/documentation">Documentation</Link>
         </nav>
