@@ -57,7 +57,7 @@ export interface TimesheetResponseProps {
   random_path: string;
   client: Client;
   user: User;
-  approver: Approver;
+  approver: Approver | null;
   timesheets: Timesheet[];
   user_signature?: string;
   approver_signature?: string;

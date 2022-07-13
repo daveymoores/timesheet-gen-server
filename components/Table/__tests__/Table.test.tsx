@@ -8,6 +8,7 @@ describe("Table", () => {
     const tree = renderer
       .create(
         <Table
+          namespace={"foobar"}
           timesheet={[{ user_edited: false, hours: 0, weekend: false }]}
           total_hours={48}
         />

@@ -1,8 +1,10 @@
-import { ParsedTimesheetDayLog, TimesheetProps } from "../../pages/[timesheet]";
+import { TimesheetResponseProps } from "../../types/Timesheet.types";
+import { ObjectId } from "mongodb";
 
-const data: TimesheetProps = {
-  "_id": "61ea86f9adc80ab30b02a577",
-  "creation_date": "2022-01-21T10:12:09.764106Z",
+
+const data: TimesheetResponseProps = {
+  "_id": new ObjectId("61ea86f9adc80ab30b02a577"),
+  "creation_date": new Date("2022-01-21T10:12:09.764106Z"),
   "random_path": "zewi2w3aj9",
   "month_year": "January, 2022",
   "client": {

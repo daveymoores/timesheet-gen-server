@@ -17,12 +17,14 @@ describe("get_connection_vars", () => {
     process.env.MONGODB_DB = "are";
     process.env.MONGODB_COLLECTION = "env";
     process.env.SITE_URL = "vars";
+    process.env.NEXT_PUBLIC_CHANGE_STREAM_SERVER_URL = "yo";
 
     expect(get_env_vars(ENV_VARS)).toEqual({
       MONGODB_URI: "these",
       MONGODB_DB: "are",
       MONGODB_COLLECTION: "env",
       SITE_URL: "vars",
+      NEXT_PUBLIC_CHANGE_STREAM_SERVER_URL: "yo",
     });
   });
 

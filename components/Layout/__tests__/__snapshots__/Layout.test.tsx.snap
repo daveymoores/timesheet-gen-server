@@ -5,63 +5,66 @@ exports[`Layout renders Layout unchanged 1`] = `
   className="page-layout"
 >
   <div
-    className="grid grid-cols-12 mt-16 mx-auto lg:max-w-screen-xl font-semibold"
+    className="container grid grid-cols-12 mt-8 lg:mt-16 mx-auto lg:max-w-screen-xl font-semibold"
   >
     <div
-      className="col-span-8 col-start-3"
+      className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-8 lg:col-start-3"
     >
       <nav
         className="flex justify-between align-middle"
       >
-        <span
-          style={
-            Object {
-              "background": "none",
-              "border": 0,
-              "boxSizing": "border-box",
-              "display": "inline-block",
-              "height": 15,
-              "margin": 0,
-              "opacity": 1,
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "relative",
-              "width": 114,
-            }
-          }
+        <a
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
-          <img
-            data-nimg="fixed"
-            decoding="async"
-            href="/"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            src="/_next/image?url=%2Flogo.svg&w=256&q=75"
-            srcSet="/_next/image?url=%2Flogo.svg&w=128&q=75 1x, /_next/image?url=%2Flogo.svg&w=256&q=75 2x"
+          <span
             style={
               Object {
-                "border": "none",
-                "bottom": 0,
+                "background": "none",
+                "border": 0,
                 "boxSizing": "border-box",
-                "display": "block",
-                "height": 0,
-                "left": 0,
-                "margin": "auto",
-                "maxHeight": "100%",
-                "maxWidth": "100%",
-                "minHeight": "100%",
-                "minWidth": "100%",
-                "objectFit": undefined,
-                "objectPosition": undefined,
+                "display": "inline-block",
+                "height": 15,
+                "margin": 0,
+                "opacity": 1,
+                "overflow": "hidden",
                 "padding": 0,
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-                "width": 0,
+                "position": "relative",
+                "width": 114,
               }
             }
-          />
-        </span>
+          >
+            <img
+              data-nimg="fixed"
+              decoding="async"
+              src="/_next/image?url=%2Flogo.svg&w=256&q=75"
+              srcSet="/_next/image?url=%2Flogo.svg&w=128&q=75 1x, /_next/image?url=%2Flogo.svg&w=256&q=75 2x"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": undefined,
+                  "objectPosition": undefined,
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
+          </span>
+        </a>
         <a
           href="/documentation"
           onClick={[Function]}
@@ -96,55 +99,58 @@ exports[`Layout renders Layout unchanged 1`] = `
       <div
         className="mt-24"
       >
-        <span
-          style={
-            Object {
-              "background": "none",
-              "border": 0,
-              "boxSizing": "border-box",
-              "display": "inline-block",
-              "height": 15,
-              "margin": 0,
-              "opacity": 1,
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "relative",
-              "width": 114,
-            }
-          }
+        <a
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
-          <img
-            data-nimg="fixed"
-            decoding="async"
-            href="/"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            src="/_next/image?url=%2Flogo.svg&w=256&q=75"
-            srcSet="/_next/image?url=%2Flogo.svg&w=128&q=75 1x, /_next/image?url=%2Flogo.svg&w=256&q=75 2x"
+          <span
             style={
               Object {
-                "border": "none",
-                "bottom": 0,
+                "background": "none",
+                "border": 0,
                 "boxSizing": "border-box",
-                "display": "block",
-                "height": 0,
-                "left": 0,
-                "margin": "auto",
-                "maxHeight": "100%",
-                "maxWidth": "100%",
-                "minHeight": "100%",
-                "minWidth": "100%",
-                "objectFit": undefined,
-                "objectPosition": undefined,
+                "display": "inline-block",
+                "height": 15,
+                "margin": 0,
+                "opacity": 1,
+                "overflow": "hidden",
                 "padding": 0,
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-                "width": 0,
+                "position": "relative",
+                "width": 114,
               }
             }
-          />
-        </span>
+          >
+            <img
+              data-nimg="fixed"
+              decoding="async"
+              src="/_next/image?url=%2Flogo.svg&w=256&q=75"
+              srcSet="/_next/image?url=%2Flogo.svg&w=128&q=75 1x, /_next/image?url=%2Flogo.svg&w=256&q=75 2x"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": undefined,
+                  "objectPosition": undefined,
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
+          </span>
+        </a>
       </div>
     </nav>
   </footer>
