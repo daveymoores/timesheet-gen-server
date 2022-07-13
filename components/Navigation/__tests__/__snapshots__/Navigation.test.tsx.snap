@@ -35,8 +35,10 @@ exports[`Navigation renders navigation unchanged 1`] = `
           <img
             data-nimg="fixed"
             decoding="async"
-            src="/_next/image?url=%2Flogo.svg&w=256&q=75"
-            srcSet="/_next/image?url=%2Flogo.svg&w=128&q=75 1x, /_next/image?url=%2Flogo.svg&w=256&q=75 2x"
+            onError={[Function]}
+            onLoad={[Function]}
+            src="/logo.svg"
+            srcSet="/logo.svg 1x, /logo.svg 2x"
             style={
               Object {
                 "border": "none",
