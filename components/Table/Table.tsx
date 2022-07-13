@@ -1,38 +1,25 @@
 import React from "react";
 
-import { ParsedTimesheetDayLog, TimesheetProps } from "../../pages/[timesheet]";
-import Cell from "../Cell/Cell";
+import { Timesheet } from "../../types/Timesheet.types";
 import TableContainer from "../TableContainer/TableContainer";
-import styles from "./Table.styles";
 
-type TableProps = Pick<
-  TimesheetProps<ParsedTimesheetDayLog>,
-  "timesheet_log" | "total_hours"
->;
+type TableProps = Pick<Timesheet, "total_hours" | "timesheet" | "namespace">;
 
-const Table: React.FC<TableProps> = ({ timesheet_log, total_hours }) => {
+const Table: React.FC<TableProps> = ({ namespace, timesheet, total_hours }) => {
   return (
-    <>
-      <div className="timesheet__table">
-        <div className="timesheet__table--wrapper">
-          <Cell text={`Days:`} title />
-          <TableContainer timesheet_log={timesheet_log} />
-          <Cell text={`Total hours worked: ${total_hours}`} title />
+    <div className="mt-2">
+      <div className="flex flex-col">
+        <TableContainer timesheet={timesheet} />
+        <div className="w-full container flex flex-col">
+          <p className="font-semibold text-md text-slate-500 mt-6 self-end">
+            {namespace} total:{" "}
+            <span className="text-green-100 font-bold">
+              {total_hours} hours
+            </span>
+          </p>
         </div>
       </div>
-      <style jsx>
-        {`
-          .timesheet__table {
-            max-width: calc(
-              ${timesheet_log.length} * var(--cellHeight) +
-                ${timesheet_log.length} * var(--lineWidth)
-            );
-            margin: auto;
-          }
-        `}
-      </style>
-      <style jsx>{styles}</style>
-    </>
+    </div>
   );
 };
 

@@ -2,166 +2,78 @@
 
 exports[`Footer renders footer unchanged 1`] = `
 <footer
-  className="jsx-14923716"
+  className="bg-black mt-24"
 >
-  <div
-    className="jsx-3185220219 newsletter-subscribe"
+  <nav
+    className="container font-semibold flex justify-center flex-col align-middle items-center gap-2 py-16"
   >
-    <h3
-      className="jsx-3185220219"
+    <a
+      href="https://github.com/daveymoores/autolog"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
     >
-      Subscribe to be the first to know about updates
-    </h3>
-    <form
-      className="jsx-3185220219"
+      Github
+    </a>
+    <a
+      href="https://www.linkedin.com/in/daveymoores"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
     >
-      <input
-        className="jsx-3861775726 t-gen--cell"
-        type="text"
-      />
-      <button
-        className="jsx-3604569186 "
-        type="submit"
-      >
-        subscribe
-      </button>
-    </form>
-  </div>
-  <div
-    className="jsx-14923716 bottom-bar"
-  >
-    <ul
-      className="jsx-14923716"
+      Linkedin
+    </a>
+    <div
+      className="mt-24"
     >
-      <li
-        className="jsx-14923716 t-gen--cell"
+      <span
+        style={
+          Object {
+            "background": "none",
+            "border": 0,
+            "boxSizing": "border-box",
+            "display": "inline-block",
+            "height": 15,
+            "margin": 0,
+            "opacity": 1,
+            "overflow": "hidden",
+            "padding": 0,
+            "position": "relative",
+            "width": 114,
+          }
+        }
       >
-        <a
-          className="jsx-14923716"
-          href=""
-        >
-          View on Github
-        </a>
-      </li>
-      <li
-        className="jsx-14923716 t-gen--cell"
-      >
-        <span
+        <img
+          data-nimg="fixed"
+          decoding="async"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          src="/_next/image?url=%2Flogo.svg&w=256&q=75"
+          srcSet="/_next/image?url=%2Flogo.svg&w=128&q=75 1x, /_next/image?url=%2Flogo.svg&w=256&q=75 2x"
           style={
             Object {
-              "background": "none",
-              "border": 0,
+              "border": "none",
+              "bottom": 0,
               "boxSizing": "border-box",
-              "display": "inline-block",
-              "height": "initial",
-              "margin": 0,
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
               "maxWidth": "100%",
-              "opacity": 1,
-              "overflow": "hidden",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": undefined,
+              "objectPosition": undefined,
               "padding": 0,
-              "position": "relative",
-              "width": "initial",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
             }
           }
-        >
-          <span
-            style={
-              Object {
-                "background": "none",
-                "border": 0,
-                "boxSizing": "border-box",
-                "display": "block",
-                "height": "initial",
-                "margin": 0,
-                "maxWidth": "100%",
-                "opacity": 1,
-                "padding": 0,
-                "width": "initial",
-              }
-            }
-          >
-            <img
-              alt=""
-              aria-hidden={true}
-              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
-              style={
-                Object {
-                  "background": "none",
-                  "border": 0,
-                  "display": "block",
-                  "height": "initial",
-                  "margin": 0,
-                  "maxWidth": "100%",
-                  "opacity": 1,
-                  "padding": 0,
-                  "width": "initial",
-                }
-              }
-            />
-          </span>
-          <img
-            alt="GitHub icon"
-            data-nimg="intrinsic"
-            decoding="async"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            style={
-              Object {
-                "border": "none",
-                "bottom": 0,
-                "boxSizing": "border-box",
-                "display": "block",
-                "height": 0,
-                "left": 0,
-                "margin": "auto",
-                "maxHeight": "100%",
-                "maxWidth": "100%",
-                "minHeight": "100%",
-                "minWidth": "100%",
-                "objectFit": undefined,
-                "objectPosition": undefined,
-                "padding": 0,
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-                "width": 0,
-              }
-            }
-          />
-          <noscript>
-            <img
-              alt="GitHub icon"
-              data-nimg="intrinsic"
-              decoding="async"
-              loading="lazy"
-              src="/_next/image?url=%2FGitHub-Mark-Light-64px.svg&w=64&q=75"
-              srcSet="/_next/image?url=%2FGitHub-Mark-Light-64px.svg&w=32&q=75 1x, /_next/image?url=%2FGitHub-Mark-Light-64px.svg&w=64&q=75 2x"
-              style={
-                Object {
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": undefined,
-                  "objectPosition": undefined,
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-          </noscript>
-        </span>
-      </li>
-    </ul>
-  </div>
+        />
+      </span>
+    </div>
+  </nav>
 </footer>
 `;

@@ -11,7 +11,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body>
+        <body className="text-green-100 h-full antialiased bg-gradient-to-tl from-slate-900 to-slate-800">
           <Main />
           <NextScript />
         </body>

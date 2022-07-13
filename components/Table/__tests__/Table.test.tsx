@@ -8,7 +8,7 @@ describe("Table", () => {
     const tree = renderer
       .create(
         <Table
-          timesheet_log={[{ user_edited: false, hours: 0, weekend: false }]}
+          timesheet={[{ user_edited: false, hours: 0, weekend: false }]}
           total_hours={48}
         />
       )

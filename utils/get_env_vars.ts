@@ -3,6 +3,7 @@ export const ENV_VARS: { [key: string]: string } = {
   SITE_URL: "SITE_URL",
   MONGODB_DB: "MONGODB_DB",
   MONGODB_COLLECTION: "MONGODB_COLLECTION",
+  NEXT_PUBLIC_CHANGE_STREAM_SERVER_URL: "NEXT_PUBLIC_CHANGE_STREAM_SERVER_URL",
 } as const;
 
 const get_env_vars = (connection_vars: { [key: string]: string }) => {

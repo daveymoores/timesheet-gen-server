@@ -1,13 +1,13 @@
 import { Collection, Db, MongoClient } from "mongodb";
 
-import { TimesheetServer } from "../pages/[timesheet]";
+import { TimesheetResponseProps } from "../types/Timesheet.types";
 
 const connect_to_db = async (connection_vars: {
   [key: string]: string;
 }): Promise<{
   client: MongoClient;
   database: Db;
-  mongoCollection: Collection<TimesheetServer>;
+  mongoCollection: Collection<TimesheetResponseProps>;
 }> => {
   const client = new MongoClient(connection_vars.MONGODB_URI);
   await client.connect();
@@ -16,7 +16,7 @@ const connect_to_db = async (connection_vars: {
   return {
     client,
     database,
-    mongoCollection: database.collection<TimesheetServer>(
+    mongoCollection: database.collection<TimesheetResponseProps>(
       connection_vars.MONGODB_COLLECTION
     ),
   };

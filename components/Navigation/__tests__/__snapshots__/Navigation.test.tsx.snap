@@ -1,46 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Navigation renders navigation unchanged 1`] = `
-<nav
-  className="jsx-3156703236"
-  role="navigation"
+<div
+  className="grid grid-cols-12 mt-16 mx-auto lg:max-w-screen-xl font-semibold"
 >
-  <span
-    className="jsx-3156703236 t-gen--cell"
+  <div
+    className="col-span-8 col-start-3"
   >
-    <a
-      href="/"
-      onClick={[Function]}
-      onMouseEnter={[Function]}
+    <nav
+      className="flex justify-between align-middle"
     >
-      TIMESHEET-GEN
-    </a>
-  </span>
-  <ul
-    className="jsx-3156703236"
-  >
-    <li
-      className="jsx-3156703236 t-gen--cell"
-    >
+      <span
+        style={
+          Object {
+            "background": "none",
+            "border": 0,
+            "boxSizing": "border-box",
+            "display": "inline-block",
+            "height": 15,
+            "margin": 0,
+            "opacity": 1,
+            "overflow": "hidden",
+            "padding": 0,
+            "position": "relative",
+            "width": 114,
+          }
+        }
+      >
+        <img
+          data-nimg="fixed"
+          decoding="async"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          src="/_next/image?url=%2Flogo.svg&w=256&q=75"
+          srcSet="/_next/image?url=%2Flogo.svg&w=128&q=75 1x, /_next/image?url=%2Flogo.svg&w=256&q=75 2x"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": undefined,
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+      </span>
       <a
-        href="/"
+        href="/documentation"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
-        Docs
+        Documentation
       </a>
-    </li>
-    <li
-      className="jsx-3156703236 t-gen--cell"
-    >
-      <a
-        href="/"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-      >
-        Code
-      </a>
-    </li>
-  </ul>
-</nav>
+    </nav>
+  </div>
+</div>
 `;

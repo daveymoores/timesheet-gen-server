@@ -2,6 +2,7 @@ import * as socketIo from "socket.io";
 
 const ws = (io: socketIo.Server) => {
   const socket_id: string[] = [];
+
   return io.on("connect", (socket: socketIo.Socket) => {
     socket_id.push(socket.id);
 
