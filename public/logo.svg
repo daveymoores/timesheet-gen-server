@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="114px" height="15px" viewBox="0 0 114 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo</title>
+    <defs>
+        <polygon id="path-1" points="0 3.14172671 113.510439 0 114 15 0 13.7932387"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="homepage" transform="translate(-179.000000, -63.000000)">
+            <g id="logo" transform="translate(179.000000, 63.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle"></g>
+                <text id="AUTOLOG" mask="url(#mask-2)" font-family="Poppins-ExtraBoldItalic, Poppins" font-size="19.7228994" font-style="italic" font-weight="700" letter-spacing="2.46536256" fill="#E1F7DE">
+                    <tspan x="1.20329088" y="14.9623777">AUTOLOG</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

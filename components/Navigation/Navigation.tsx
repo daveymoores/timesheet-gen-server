@@ -1,26 +1,27 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import navStyles from "./Navigation.styles";
-
 const Navigation: React.FC = () => {
   return (
-    <>
-      <nav role="navigation">
-        <span className="t-gen--cell">
-          <Link href="/">TIMESHEET-GEN</Link>
-        </span>
-        <ul>
-          <li className="t-gen--cell">
-            <Link href="">Docs</Link>
-          </li>
-          <li className="t-gen--cell">
-            <Link href="">Code</Link>
-          </li>
-        </ul>
-      </nav>
-      <style jsx>{navStyles}</style>
-    </>
+    <div className="container grid grid-cols-12 mt-8 lg:mt-16 mx-auto lg:max-w-screen-xl font-semibold">
+      <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-8 lg:col-start-3">
+        <nav className="flex justify-between align-middle">
+          <Link href="/" passHref>
+            <a>
+              <Image
+                src="/logo.svg"
+                width={114}
+                height={15}
+                priority={true}
+                layout="fixed"
+              />
+            </a>
+          </Link>
+          <Link href="/documentation">Documentation</Link>
+        </nav>
+      </div>
+    </div>
   );
 };
 

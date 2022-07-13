@@ -2,97 +2,21 @@
 
 exports[`Layout renders Layout unchanged 1`] = `
 <div
-  className="jsx-1081665710 page-layout"
+  className="page-layout"
 >
-  <nav
-    className="jsx-3156703236"
-    role="navigation"
+  <div
+    className="container grid grid-cols-12 mt-8 lg:mt-16 mx-auto lg:max-w-screen-xl font-semibold"
   >
-    <span
-      className="jsx-3156703236 t-gen--cell"
+    <div
+      className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-8 lg:col-start-3"
     >
-      <a
-        href="/"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-      >
-        TIMESHEET-GEN
-      </a>
-    </span>
-    <ul
-      className="jsx-3156703236"
-    >
-      <li
-        className="jsx-3156703236 t-gen--cell"
+      <nav
+        className="flex justify-between align-middle"
       >
         <a
           href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}
-        >
-          Docs
-        </a>
-      </li>
-      <li
-        className="jsx-3156703236 t-gen--cell"
-      >
-        <a
-          href="/"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-        >
-          Code
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <main
-    className="jsx-1081665710"
-  />
-  <footer
-    className="jsx-14923716"
-  >
-    <div
-      className="jsx-3185220219 newsletter-subscribe"
-    >
-      <h3
-        className="jsx-3185220219"
-      >
-        Subscribe to be the first to know about updates
-      </h3>
-      <form
-        className="jsx-3185220219"
-      >
-        <input
-          className="jsx-3861775726 t-gen--cell"
-          type="text"
-        />
-        <button
-          className="jsx-3604569186 "
-          type="submit"
-        >
-          subscribe
-        </button>
-      </form>
-    </div>
-    <div
-      className="jsx-14923716 bottom-bar"
-    >
-      <ul
-        className="jsx-14923716"
-      >
-        <li
-          className="jsx-14923716 t-gen--cell"
-        >
-          <a
-            className="jsx-14923716"
-            href=""
-          >
-            View on Github
-          </a>
-        </li>
-        <li
-          className="jsx-14923716 t-gen--cell"
         >
           <span
             style={
@@ -101,57 +25,23 @@ exports[`Layout renders Layout unchanged 1`] = `
                 "border": 0,
                 "boxSizing": "border-box",
                 "display": "inline-block",
-                "height": "initial",
+                "height": 15,
                 "margin": 0,
-                "maxWidth": "100%",
                 "opacity": 1,
                 "overflow": "hidden",
                 "padding": 0,
                 "position": "relative",
-                "width": "initial",
+                "width": 114,
               }
             }
           >
-            <span
-              style={
-                Object {
-                  "background": "none",
-                  "border": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": "initial",
-                  "margin": 0,
-                  "maxWidth": "100%",
-                  "opacity": 1,
-                  "padding": 0,
-                  "width": "initial",
-                }
-              }
-            >
-              <img
-                alt=""
-                aria-hidden={true}
-                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
-                style={
-                  Object {
-                    "background": "none",
-                    "border": 0,
-                    "display": "block",
-                    "height": "initial",
-                    "margin": 0,
-                    "maxWidth": "100%",
-                    "opacity": 1,
-                    "padding": 0,
-                    "width": "initial",
-                  }
-                }
-              />
-            </span>
             <img
-              alt="GitHub icon"
-              data-nimg="intrinsic"
+              data-nimg="fixed"
               decoding="async"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              onError={[Function]}
+              onLoad={[Function]}
+              src="/logo.svg"
+              srcSet="/logo.svg 1x, /logo.svg 2x"
               style={
                 Object {
                   "border": "none",
@@ -175,42 +65,98 @@ exports[`Layout renders Layout unchanged 1`] = `
                 }
               }
             />
-            <noscript>
-              <img
-                alt="GitHub icon"
-                data-nimg="intrinsic"
-                decoding="async"
-                loading="lazy"
-                src="/_next/image?url=%2FGitHub-Mark-Light-64px.svg&w=64&q=75"
-                srcSet="/_next/image?url=%2FGitHub-Mark-Light-64px.svg&w=32&q=75 1x, /_next/image?url=%2FGitHub-Mark-Light-64px.svg&w=64&q=75 2x"
-                style={
-                  Object {
-                    "border": "none",
-                    "bottom": 0,
-                    "boxSizing": "border-box",
-                    "display": "block",
-                    "height": 0,
-                    "left": 0,
-                    "margin": "auto",
-                    "maxHeight": "100%",
-                    "maxWidth": "100%",
-                    "minHeight": "100%",
-                    "minWidth": "100%",
-                    "objectFit": undefined,
-                    "objectPosition": undefined,
-                    "padding": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                    "width": 0,
-                  }
-                }
-              />
-            </noscript>
           </span>
-        </li>
-      </ul>
+        </a>
+        <a
+          href="/documentation"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Documentation
+        </a>
+      </nav>
     </div>
+  </div>
+  <main />
+  <footer
+    className="bg-black mt-24"
+  >
+    <nav
+      className="container font-semibold flex justify-center flex-col align-middle items-center gap-2 py-16"
+    >
+      <a
+        href="https://github.com/daveymoores/autolog"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Github
+      </a>
+      <a
+        href="https://www.linkedin.com/in/daveymoores"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Linkedin
+      </a>
+      <div
+        className="mt-24"
+      >
+        <a
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <span
+            style={
+              Object {
+                "background": "none",
+                "border": 0,
+                "boxSizing": "border-box",
+                "display": "inline-block",
+                "height": 15,
+                "margin": 0,
+                "opacity": 1,
+                "overflow": "hidden",
+                "padding": 0,
+                "position": "relative",
+                "width": 114,
+              }
+            }
+          >
+            <img
+              data-nimg="fixed"
+              decoding="async"
+              onError={[Function]}
+              onLoad={[Function]}
+              src="/logo.svg"
+              srcSet="/logo.svg 1x, /logo.svg 2x"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": undefined,
+                  "objectPosition": undefined,
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
+          </span>
+        </a>
+      </div>
+    </nav>
   </footer>
 </div>
 `;

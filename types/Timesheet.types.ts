@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 export interface QrCode {
   light?: string;
   dark?: string;
@@ -49,13 +51,13 @@ export interface TimesheetProps {
 }
 
 export interface TimesheetResponseProps {
-  _id: string;
+  _id: ObjectId;
   creation_date: Date;
   month_year: string;
   random_path: string;
   client: Client;
   user: User;
-  approver: Approver;
+  approver: Approver | null;
   timesheets: Timesheet[];
   user_signature?: string;
   approver_signature?: string;

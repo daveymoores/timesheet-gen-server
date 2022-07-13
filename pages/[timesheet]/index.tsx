@@ -26,36 +26,31 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
   const days = getDays(props.month_year);
 
   React.useEffect(() => {
+    if (!socket) return;
     socket.on("connect", () => {
       console.log("Socket.io client connected");
-      socket.emit("join", path);
+      socket.emit("JoinRoom", path);
     });
-  }, []);
+  }, [socket]);
 
   return (
-    <React.Fragment>
-      <article className="timesheet">
+    <Timesheet
+      printButton={
         <ReactToPrint
-          trigger={() => <Button text="Print" />}
+          trigger={() => (
+            <div className="self-center align-top hidden md:block">
+              <Button text="Print timesheet" />
+            </div>
+          )}
           content={() => componentRef.current}
         />
-        <Timesheet
-          ref={componentRef}
-          {...props}
-          path={path}
-          timesheets={timesheets}
-          days={days}
-        />
-      </article>
-      <style jsx>{`
-        .timesheet {
-          max-width: calc(
-            ${days} * var(--cellHeight) + ${days} * var(--lineWidth)
-          );
-          margin: auto;
-        }
-      `}</style>
-    </React.Fragment>
+      }
+      ref={componentRef}
+      {...props}
+      path={path}
+      timesheets={timesheets}
+      days={days}
+    />
   );
 };
 

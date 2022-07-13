@@ -5,12 +5,11 @@ import useSystemTheme from "react-use-system-theme";
 
 import { QrCode } from "../../types/Timesheet.types";
 import palette from "../../utils/palette";
-import Cell from "../Cell/Cell";
 import styles from "./QrGroup.styles";
 
 interface QrGroupProps {
   cellTitle: string;
-  signature: string;
+  signature: string | null;
   qrCode: QrCode;
 }
 
@@ -58,7 +57,7 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
     const systemTheme: SystemTheme = useSystemTheme(SystemTheme.DARK);
     const renderCanvasRef = React.useRef<CanvasDraw>(null);
     const printCanvasRef = React.useRef<CanvasDraw>(null);
-    const signatureJson = JSON.parse(signature);
+    const signatureJson = signature && JSON.parse(signature);
 
     React.useEffect(() => {
       if (renderCanvasRef.current && printCanvasRef.current && signature) {
@@ -79,7 +78,7 @@ const QrGroup: React.FC<QrGroupProps> = React.memo(
     return (
       <>
         <div className="qr__group">
-          <Cell text={cellTitle} title />
+          <p className="font-semibold text-3xl">{cellTitle}</p>
           {signature && typeof window !== "undefined" ? (
             <React.Fragment>
               <div className="render-canvas">
