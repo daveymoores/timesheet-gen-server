@@ -1,7 +1,6 @@
 import React, { ForwardedRef, LegacyRef, ReactInstance } from "react";
 
 import { TimesheetProps } from "../../types/Timesheet.types";
-import Qr from "../Qr/Qr";
 import Table from "../Table/Table";
 
 interface Props extends Omit<TimesheetProps, "timesheet"> {
@@ -12,17 +11,7 @@ interface Props extends Omit<TimesheetProps, "timesheet"> {
 // eslint-disable-next-line react/display-name
 const Timesheet = React.forwardRef<ReactInstance, Props>(
   (
-    {
-      timesheets,
-      client,
-      user,
-      month_year,
-      user_sign_qr_code,
-      approver_sign_qr_code,
-      user_signature,
-      approver_signature,
-      printButton,
-    },
+    { timesheets, client, user, month_year, printButton },
     ref: ForwardedRef<ReactInstance>
   ) => {
     return (
@@ -116,12 +105,6 @@ const Timesheet = React.forwardRef<ReactInstance, Props>(
             </span>
           </h3>
         </div>
-        <Qr
-          user_sign_qr_code={user_sign_qr_code}
-          approver_sign_qr_code={approver_sign_qr_code}
-          user_signature={user_signature}
-          approver_signature={approver_signature}
-        />
       </div>
     );
   }

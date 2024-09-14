@@ -14,24 +14,19 @@
     "checklist": "yarn test && yarn lint && yarn tsc"
   },
   "dependencies": {
-    "@socket.io/mongo-adapter": "^0.1.0",
-    "@socket.io/mongo-emitter": "^0.1.0",
     "@tailwindcss/forms": "^0.4.0",
+    "@types/cors": "^2.8.17",
     "cors": "^2.8.5",
     "count-days-in-month": "^1.0.0",
     "express": "^4.17.1",
     "mongodb": "^4.1.4",
     "next": "^12.2.2",
     "node-match-path": "^0.6.3",
-    "qrcode": "^1.4.4",
     "react": "17.0.2",
-    "react-canvas-draw": "^1.2.1",
     "react-dom": "17.0.2",
     "react-to-print": "^2.14.0",
     "react-use": "^17.3.1",
-    "react-use-system-theme": "^1.1.1",
-    "socket.io": "^4.3.2",
-    "socket.io-client": "^4.3.2"
+    "react-use-system-theme": "^1.1.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.0.3",
@@ -65,5 +60,6 @@
     "tailwindcss": "^3.1.6",
     "ts-node": "^10.4.0",
     "typescript": "4.4.4"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

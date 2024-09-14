@@ -1,10 +1,5 @@
 import { ObjectId } from "mongodb";
 
-export interface QrCode {
-  light?: string;
-  dark?: string;
-}
-
 export interface TimesheetDayLog {
   hours: number;
   user_edited: boolean;
@@ -44,10 +39,6 @@ export interface TimesheetProps {
   client: Client;
   user: User;
   month_year: string;
-  user_sign_qr_code: QrCode;
-  approver_sign_qr_code: QrCode;
-  user_signature: string | null;
-  approver_signature: string | null;
 }
 
 export interface TimesheetResponseProps {
@@ -57,8 +48,5 @@ export interface TimesheetResponseProps {
   random_path: string;
   client: Client;
   user: User;
-  approver: Approver | null;
   timesheets: Timesheet[];
-  user_signature?: string;
-  approver_signature?: string;
 }

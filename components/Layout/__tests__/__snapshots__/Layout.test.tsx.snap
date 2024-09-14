@@ -25,13 +25,13 @@ exports[`Layout renders Layout unchanged 1`] = `
                 "border": 0,
                 "boxSizing": "border-box",
                 "display": "inline-block",
-                "height": 15,
+                "height": 30,
                 "margin": 0,
                 "opacity": 1,
                 "overflow": "hidden",
                 "padding": 0,
                 "position": "relative",
-                "width": 114,
+                "width": 142,
               }
             }
           >
@@ -113,13 +113,13 @@ exports[`Layout renders Layout unchanged 1`] = `
                 "border": 0,
                 "boxSizing": "border-box",
                 "display": "inline-block",
-                "height": 15,
+                "height": 22,
                 "margin": 0,
                 "opacity": 1,
                 "overflow": "hidden",
                 "padding": 0,
                 "position": "relative",
-                "width": 114,
+                "width": 100,
               }
             }
           >
