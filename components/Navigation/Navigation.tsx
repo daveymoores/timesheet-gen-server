@@ -11,8 +11,8 @@ const Navigation: React.FC = () => {
             <a>
               <Image
                 src="/logo.svg"
-                width={142}
-                height={30}
+                width={114}
+                height={24}
                 priority={true}
                 layout="fixed"
               />

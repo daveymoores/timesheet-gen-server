@@ -13,8 +13,8 @@ const Footer: React.FC = () => {
             <a>
               <Image
                 src="/logo.svg"
-                width={100}
-                height={22}
+                width={114}
+                height={24}
                 priority={true}
                 layout="fixed"
               />

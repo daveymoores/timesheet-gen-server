@@ -2,7 +2,6 @@ import { ObjectId } from "mongodb";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import React, { ReactInstance } from "react";
-import ReactToPrint from "react-to-print";
 
 import Button from "../../components/Button/Button";
 import Timesheet from "../../components/Timesheet/Timesheet";
@@ -20,17 +19,33 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
   const componentRef = React.useRef<ReactInstance>(null);
   const days = getDays(props.month_year);
 
+  const handleGeneratePdf = async () => {
+    try {
+      const response = await fetch("/api/generate-pdf");
+      if (!response.ok) {
+        throw new Error("Failed to generate PDF");
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "timesheet.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // Revoke the object URL after the download
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
+  };
+
   return (
     <Timesheet
       printButton={
-        <ReactToPrint
-          trigger={() => (
-            <div className="self-center align-top hidden md:block">
-              <Button text="Print timesheet" />
-            </div>
-          )}
-          content={() => componentRef.current}
-        />
+        <div className="self-center align-top hidden md:block">
+          <Button text="Print timesheet" onClick={handleGeneratePdf} />
+        </div>
       }
       ref={componentRef}
       {...props}

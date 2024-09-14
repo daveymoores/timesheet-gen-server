@@ -13,7 +13,7 @@ class MyApp extends App {
     return (
       <Layout>
         <Head>
-          <title>My new cool app</title>
+          <title>AUTOLOG</title>
         </Head>
         <Component {...pageProps} />
       </Layout>
