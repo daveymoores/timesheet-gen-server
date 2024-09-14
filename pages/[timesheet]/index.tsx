@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import React, { ReactInstance } from "react";
 
@@ -16,8 +17,10 @@ import get_env_vars, { ENV_VARS } from "../../utils/get_env_vars";
 const Index: React.FC<{ params: TimesheetProps }> = ({
   params: { timesheets, path, ...props },
 }) => {
+  const router = useRouter();
   const componentRef = React.useRef<ReactInstance>(null);
   const days = getDays(props.month_year);
+  const { query } = router;
 
   const handleGeneratePdf = async () => {
     try {
@@ -44,7 +47,9 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
     <Timesheet
       printButton={
         <div className="self-center align-top hidden md:block">
-          <Button text="Print timesheet" onClick={handleGeneratePdf} />
+          {!query?.print ? (
+            <Button text="Print timesheet" onClick={handleGeneratePdf} />
+          ) : null}
         </div>
       }
       ref={componentRef}

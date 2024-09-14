@@ -54,7 +54,7 @@ export default async function handler(
     const page = await browser.newPage();
 
     // Navigate to the page you want to capture
-    await page.goto("http://localhost:3000/z7qbl04yaf", {
+    await page.goto("http://localhost:3000/z7qbl04yaf?print=true", {
       waitUntil: "networkidle0",
     });
 
