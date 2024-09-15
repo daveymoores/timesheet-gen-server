@@ -7,6 +7,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    const siteUrl = process.env.SITE_URL || "http://localhost:3000";
+
+    const { path } = req.query || {};
+
+    if (!path) {
+      throw new Error("Path is required");
+    }
+
     // Launch a headless browser
     const browser = await puppeteer.launch({
       headless: true,
@@ -52,9 +60,9 @@ export default async function handler(
     });
 
     const page = await browser.newPage();
-
+    console.log(`${siteUrl}/${path}?print=true`);
     // Navigate to the page you want to capture
-    await page.goto("http://localhost:3000/z7qbl04yaf?print=true", {
+    await page.goto(`${siteUrl}/${path}?print=true`, {
       waitUntil: "networkidle0",
     });
 

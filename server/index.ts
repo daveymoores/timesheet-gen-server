@@ -5,7 +5,7 @@ import * as http from "http";
 import next from "next";
 
 const dev = process.env.NODE_ENV !== "production";
-const port = process.env.PORT || 3000;
+const port = 3000;
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
@@ -26,7 +26,11 @@ nextApp.prepare().then(async () => {
 
   app.get("*", (req, res) => handle(req, res));
 
-  server.listen(port, () => {
+  server.listen(port, (err?: unknown) => {
+    if (err) {
+      console.error("Failed to start server:", err);
+      process.exit(1);
+    }
     console.log(`Server is listening on port ${port}`);
   });
 });

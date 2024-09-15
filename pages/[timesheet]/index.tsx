@@ -20,11 +20,11 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
   const router = useRouter();
   const componentRef = React.useRef<ReactInstance>(null);
   const days = getDays(props.month_year);
-  const { query } = router;
+  const { query } = router ?? {};
 
   const handleGeneratePdf = async () => {
     try {
-      const response = await fetch("/api/generate-pdf");
+      const response = await fetch(`/api/generate-pdf?path=${path}`);
       if (!response.ok) {
         throw new Error("Failed to generate PDF");
       }

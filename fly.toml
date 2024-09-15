@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for autolog-falling-field-1648 on 2024-09-14T15:53:02+02:00
+# fly.toml app configuration file generated for autolog-autumn-thunder-3523 on 2024-09-15T11:47:07+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'autolog-falling-field-1648'
+app = 'autolog-autumn-thunder-3523'
 primary_region = 'ams'
 kill_signal = 'SIGINT'
 kill_timeout = '5s'
