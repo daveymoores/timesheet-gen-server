@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import React, { ReactInstance } from "react";
+import { toast } from "react-hot-toast";
 
 import Button from "../../components/Button/Button";
 import Timesheet from "../../components/Timesheet/Timesheet";
@@ -22,25 +23,32 @@ const Index: React.FC<{ params: TimesheetProps }> = ({
   const days = getDays(props.month_year);
   const { query } = router ?? {};
 
-  const handleGeneratePdf = async () => {
-    try {
-      const response = await fetch(`/api/generate-pdf?path=${path}`);
-      if (!response.ok) {
-        throw new Error("Failed to generate PDF");
+  const handleGeneratePdf = () => {
+    toast.promise(
+      fetch(`/api/generate-pdf?path=${encodeURIComponent(path)}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to generate PDF");
+          }
+          return response.blob();
+        })
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "timesheet.pdf";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          // Revoke the object URL after the download
+          window.URL.revokeObjectURL(url);
+        }),
+      {
+        loading: "Generating PDF...",
+        success: "PDF generated successfully!",
+        error: "Error generating PDF",
       }
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "timesheet.pdf";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      // Revoke the object URL after the download
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error generating PDF:", error);
-    }
+    );
   };
 
   return (
