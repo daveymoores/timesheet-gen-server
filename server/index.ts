@@ -5,6 +5,7 @@ import * as http from "http";
 import next from "next";
 
 const dev = process.env.NODE_ENV !== "production";
+const port = process.env.PORT || 3000;
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
@@ -25,10 +26,7 @@ nextApp.prepare().then(async () => {
 
   app.get("*", (req, res) => handle(req, res));
 
-  server.listen(3000, () => {
-    console.log(
-      "Ready on ",
-      dev ? "http://localhost:3000" : process.env.SITE_URL
-    );
+  server.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
   });
 });

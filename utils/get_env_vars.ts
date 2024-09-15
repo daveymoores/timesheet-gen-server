@@ -1,6 +1,5 @@
 export const ENV_VARS: { [key: string]: string } = {
   MONGODB_URI: "MONGODB_URI",
-  SITE_URL: "SITE_URL",
   MONGODB_DB: "MONGODB_DB",
   MONGODB_COLLECTION: "MONGODB_COLLECTION",
 } as const;
